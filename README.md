@@ -18,3 +18,8 @@ A studying tool that acts as a fast-paced quiz. Self-entered questions, phrases,
 
 ## Stretch Functionality:
 * Let's have a GREAT stretch
+
+
+## Cameron's Corner
+* Left, right, middle packs of dinosaurs to save (eg. Three strikes and you're out)
+* Score = number of meteorites demolished
