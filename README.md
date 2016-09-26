@@ -23,3 +23,31 @@ A studying tool that acts as a fast-paced quiz. Self-entered questions, phrases,
 ## Cameron's Corner
 * Left, right, middle packs of dinosaurs to save (eg. Three strikes and you're out)
 * Score = number of meteorites demolished
+
+Screens:
+Home:
+1. Play Game
+2. Manage Sets
+3. Scoreboard
+4. Exit
+
+Play Game:
+Choose Set
+1. Default
+2. Custom 1
+3. Custom Name
+...
+...
+x. Home
+
+Manage Set:
+1. Create Set
+2. Edit Set
+3. Import Set
+4. Export Set
+5. Delete Set
+6. Home
+
+Scoreboard
+Display scores
+1. Home
