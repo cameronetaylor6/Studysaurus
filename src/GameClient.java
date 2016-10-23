@@ -2,13 +2,13 @@ import javax.swing.*;
 
 public class GameClient {
 
-    //Instance variables
+    //instance variables
     private Page currentPage;
     private Set currentSet;
     private int dinosaurCount;
     private Score score;
 
-    //Getters and setters
+    //getters and setters
     public void setCurrentPage(Page page) {
         currentPage = page;
     }
@@ -34,7 +34,7 @@ public class GameClient {
         return score;
     }
 
-    //Methods
+    //methods
     //TODO: compelte
     private static void displayHomePage() {
 
@@ -75,11 +75,12 @@ public class GameClient {
     }
 
     public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
+        //schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createFrame();
+                displayHomePage();
             }
         });
     }
