@@ -24,7 +24,6 @@ public class JsonImporter {
 		JSONParser parser = new JSONParser();
 
 		try {
-
 			Object obj = parser.parse(new FileReader(filePath));
 
 			JSONObject jObj = (JSONObject) obj;
