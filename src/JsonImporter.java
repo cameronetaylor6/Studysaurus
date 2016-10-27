@@ -1,52 +1,75 @@
-import java.io.*;
-
-/*
- *Set files are .json files formatted as follows:
- *object names will correspond to their respective Set names
- *name : value pair will correspond to their respective Pairs
- *note: there can only be one name or pair per line
- */
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class JsonImporter {
 
-	//instance variables
-	private static File file;
-	private static Set set;
-	private static DatabaseConnector dbConnection;
-	private int success;
+	private String filePath;
+	private Set set;
+	//private DatabaseConnector dbConnection;
 
-	//Constructor
-	JsonImporter(File _file) {
-		file = _file;
+	JsonImporter(String _filePath) {
+		filePath = _filePath;
+		//dbConnection = new DatabaseConnector();
+		set = null;
 	}
 
-	private static String parseFile() {
-		try (BufferedReader br = new BufferedReader(new FileReader(file.getCanonicalFile()))) {
-			String currentLine;
+	private int import() {
+		int success = 1;
 
-			while ((currentLine = br.readLine()) != null) {
+		JSONParser parser = new JSONParser();
 
+		try {
+
+			Object obj = parser.parse(new FileReader(filePath));
+
+			JSONObject jObj = (JSONObject) obj;
+			String setName = (String) jObj.get("name");
+			JSONObject termValues = jObj.get(setName);
+
+			set = new Set(setName);
+
+			for (Object term : jObj.keySet()) {
+				String termStr = (String) term;
+				Object value = jObj.get(termStr);
+				String valueStr = (String) value;
+				//TODO: create pair
+				set.addPair(pair);
 			}
 		}
-		catch (IOException e){
+		catch (FileNotFoundException e) {
+			success = 0;
 			e.printStackTrace();
+			return success;
+		} 
+		catch (IOException e) {
+			success = 0;
+			e.printStackTrace();
+			return success;
+		} 
+		catch (ParseException e) {
+			success = 0;
+			e.printStackTrace();
+			return success;
 		}
+		return success;
+	}
+
+	//TODO: insert set into DB
+	private int save() {
 
 	}
 
-	private Pair createPair(String jsonLine) {
-
-	}
-
-	//inserts set into db
-	//return: 0 -> success, !=0 -> failure
-	private int saveSet(String setName) {
-
-	}
-
-	//exports Set to .json file
-	private File jsonify(Set set) {
-
+	public int importAndSave() {
+		int success = import();
+		if (success) {
+			success = save();
+		}
+		return success;
 	}
 
 	public static void main(String[] args) {

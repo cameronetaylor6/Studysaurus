@@ -1,34 +1,49 @@
-import java.io.*;
-
-/*
- *Set files are .json files formatted as follows:
- *object names will correspond to their respective Set names
- *name : value pair will correspond to their respective Pairs
- *note: there can only be one name or pair per line
- */
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class JsonExporter {
 
-	//instance variables
-	private static File file;
-	private static Set set;
-	private static DatabaseConnector dbConnection;
-	private int success;
+	private JSONObject termValues;
+	private JSONObject setName;
+	private Set set;
 
-	//constructor
-	JsonExporter(Set _set, DatabaseConnector _dbConnection) {
-		file = null;
-		dbConnection = _dbConnection;
+	JsonExporter(Set _set) {
+		jObj = new JSONObject();
+		jList = new JSONArray();
 		set = _set;
-		success = 0;
 	}
 
-	//exports Set to .json file
-	private File jsonify(Set set) {
+	public int export() {
+		int success = 1;
 
+		ArrayList<Pair<String, String>> pairs = set.getPairs();
+		
+		for (Pair pair : pairs) {
+			//TODO: udpate with new pair
+			//termValues.put(pair.termString, pair.valueString);
+		}
+
+		set.put("name", set.getName());
+		set.put(set.getName(), termValues);
+
+		try {
+			FileWriter file = new FileWriter("/home/user/Desktop/Studysaurus/Sets/" + set.getName() + ".json");
+			file.write(set.toJSONString());
+			file.flush();
+			file.close();
+		} 
+		catch (IOException e) {
+			success = 0;
+			e.printStackTrace();
+			return success;
+		}
+		return success;
 	}
 
 	public static void main(String[] args) {
-
+		Set s = new Set("Math");
+		JsonExporter j = new JsonExporter(s);
 	}
 }
