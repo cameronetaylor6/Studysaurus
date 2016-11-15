@@ -1,34 +1,67 @@
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.List;
 
-public class Asteroid {
+public class Asteroid implements Subject {
+	static class AsteroidState {
+		public boolean impacted = false;
+		public boolean diffused = false;
+	}
 
-	private Timer timer;
-	private Pair termValue;
+	private AsteroidState _state;
+	private Timer _timer;
+	private Pair _termValue;
+	private List<Observer> _observers;	
 
 	//TODO: update difficulty to enumeration/class?
 	Asteroid(Pair pair, int difficulty) {
-		termValue = pair;
-		timer = new Timer();
-		timer.schedule (new Impact(), difficulty*1000);
+		_state = new AsteroidState();
+		_termValue = pair;
+		_timer = new Timer();
+		_timer.schedule (new Impact(), difficulty*1000);
 	}
 
 	class Impact extends TimerTask {
 		public void run() {
-			destroyDinosaur();
-			timer.cancel(); //kill timer thread
+			_state.impacted = true;
+			notifyObservers();
+			_timer.cancel(); //kill timer thread
 		}
 	}
 
-	//TODO: do we want these static?
-	private void destroyDinosaur() {
-		//decrement dino count 
+	private void destroyAsteroid() {
+		_state.diffused = true;
+		notifyObservers();
 	}
 
-	//TODO: how to access counts in GC?
-	private void destroyAsteroid() {
-		//decrement asteroid count
+	@Override
+	public void register(Observer obj) {
+		if(obj == null) throw new NullPointerException("null observer - asteroid");
+	
+		if(!_observers.contains(obj)) _observers.add(obj);
 	}
+
+	@Override
+	public void unregister(Observer obj) {
+		_observers.remove(obj);
+	}
+
+	@Override
+	public void notifyObservers() {
+		List<Observer> obsTemp = null;
+		
+		if (!_state.impacted && !_state.diffused) return;
+	
+		for (Observer obj : _observers) {
+			obj.update();
+		}
+	}
+
+	@Override
+	public Object getUpdate(Observer obj) {
+		return _state;
+	}
+		
 
 	public static void main(String[] args) {
 		

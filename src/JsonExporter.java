@@ -5,15 +5,13 @@ import org.json.simple.JSONObject;
 
 public class JsonExporter {
 
-	private Set set;
+	private Set _set;
 
-	JsonExporter(Set _set) {
-		set = _set;
+	JsonExporter(Set set) {
+		_set = set;
 	}
 
 	public int export() {
-		int success = 1;
-
 		JSONObject termValues = new JSONObject();
 
 		ArrayList<Pair<String, String>> pairs = set.getPairs();
@@ -32,11 +30,10 @@ public class JsonExporter {
 			file.close();
 		} 
 		catch (IOException e) {
-			success = 0;
 			e.printStackTrace();
-			return success;
+			return -1;
 		}
-		return success;
+		return 0;
 	}
 
 	public static void main(String[] args) {
