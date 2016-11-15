@@ -8,54 +8,48 @@ import org.json.simple.parser.ParseException;
 
 public class JsonImporter {
 
-	private String filePath;
-	private Set set;
+	private String _filePath;
+	private Set _set;
 	//private DatabaseConnector dbConnection;
 
-	JsonImporter(String _filePath) {
-		filePath = _filePath;
+	JsonImporter(String filePath) {
+		_filePath = filePath;
 		//dbConnection = new DatabaseConnector();
-		set = null;
+		_set = new Set();
 	}
 
 	private int import() {
-		int success = 1;
-
 		JSONParser parser = new JSONParser();
 
 		try {
-			Object obj = parser.parse(new FileReader(filePath));
-
+			Object obj = parser.parse(new FileReader(_filePath));
 			JSONObject jObj = (JSONObject) obj;
 			String setName = (String) jObj.get("name");
 			JSONObject termValues = jObj.get(setName);
 
-			set = new Set(setName);
+			_set.setName(setName);
 
 			for (Object term : jObj.keySet()) {
 				String termStr = (String) term;
 				Object value = jObj.get(termStr);
 				String valueStr = (String) value;
 				//TODO: create pair
-				set.addPair(pair);
+				_set.addPair(pair);
 			}
 		}
 		catch (FileNotFoundException e) {
-			success = 0;
 			e.printStackTrace();
-			return success;
+			return -1;
 		} 
 		catch (IOException e) {
-			success = 0;
 			e.printStackTrace();
-			return success;
+			return -1;
 		} 
 		catch (ParseException e) {
-			success = 0;
 			e.printStackTrace();
-			return success;
+			return -1;
 		}
-		return success;
+		return 0;
 	}
 
 	//TODO: insert set into DB
