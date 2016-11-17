@@ -1,8 +1,13 @@
 import java.awt.*;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public abstract class Page extends JFrame {
+public abstract class Page extends JFrame implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	final JPanel panel = new JPanel(); 
     public Page(String name) {
 		super(name);
@@ -25,7 +30,7 @@ public abstract class Page extends JFrame {
         page.pack();
         page.setVisible(true);
     }
-     
+
     public static void main(String[] args) {
         /* Use an appropriate Look and Feel */
         try {

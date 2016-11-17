@@ -2,8 +2,6 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -11,11 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-public class EditSetPage extends Page implements ActionListener{
+public class EditSetPage extends Page {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	GridLayout layout = new GridLayout(5,0);
 	JButton addPairButton, deletePairButton, editPairButton, doneButton;
 	JTextField editTerm, editDefinition, addTerm, addDefinition, deleteTerm, deleteDefinition;
-	JComboBox selectSetComboBox, selectPairEditComboBox, selectPairDeleteComboBox;
+	JComboBox<String> selectSetComboBox, selectPairEditComboBox, selectPairDeleteComboBox;
 	
 
 	public EditSetPage(String name) {
@@ -38,7 +40,7 @@ public class EditSetPage extends Page implements ActionListener{
 		
 		//Stuff for selectSetPanel
 	    String[] setNames = {"Set1", "Set2", "Set3"};
-	    selectSetComboBox = new JComboBox(setNames);
+	    selectSetComboBox = new JComboBox<String>(setNames);
 	    selectSetComboBox.addActionListener(this);
 	    selectSetPanel.add(new JLabel("Select a set to edit:"));
 	    selectSetPanel.add(selectSetComboBox);
@@ -54,7 +56,7 @@ public class EditSetPage extends Page implements ActionListener{
 	    
 	    //Stuff for editPairPanel
 	    String[] pairs = {"Hello : Hola", "Goodbye : Adios"};
-	    selectPairEditComboBox = new JComboBox(pairs);
+	    selectPairEditComboBox = new JComboBox<String>(pairs);
 	    selectPairEditComboBox.addActionListener(this);
 	    editTerm = new JTextField();
 	    editTerm.addActionListener(this);
@@ -69,7 +71,7 @@ public class EditSetPage extends Page implements ActionListener{
 	    editPairPanel.add(editPairButton);
 	    
 	    //Stuff for deletePairPanel
-	    selectPairDeleteComboBox = new JComboBox(pairs);
+	    selectPairDeleteComboBox = new JComboBox<String>(pairs);
 	    selectPairDeleteComboBox.addActionListener(this);
 	    deleteTerm = new JTextField();
 	    deleteTerm.setEditable(false);
@@ -97,7 +99,7 @@ public class EditSetPage extends Page implements ActionListener{
 		String newTerm, newDef;
 		Object obj = e.getSource();
 		if(obj == selectSetComboBox){
-			//Load set in from DB and populate the dropdowns
+			//Load set in from DB and populate the drop-downs
 		}
 		else if(obj == addPairButton){
 			newTerm = addTerm.getText();
@@ -113,10 +115,12 @@ public class EditSetPage extends Page implements ActionListener{
 			editTerm.setText("");
 			editDefinition.setText("");
 			selectPairEditComboBox.removeItem(selectPairEditComboBox.getSelectedItem());
-			selectPairEditComboBox.addItem(newTerm + ":" + newDef);
+			selectPairEditComboBox.addItem(newTerm + " : " + newDef);
 		}
 		else if(obj == deletePairButton){
+			@SuppressWarnings("unused")
 			String deletedTerm = deleteTerm.getText();
+			@SuppressWarnings("unused")
 			String deletedDef = deleteDefinition.getText();
 			//Delete Pair from DB
 			//Remove from GUI

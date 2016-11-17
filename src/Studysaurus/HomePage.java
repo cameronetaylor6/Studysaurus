@@ -4,8 +4,12 @@ import java.awt.event.*;
 import javax.swing.*;
 
 
-public class HomePage extends Page implements ActionListener{
-    private GridLayout layout = new GridLayout(4,0);
+public class HomePage extends Page{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private GridLayout layout = new GridLayout(4,0);
     JButton playButton, manageSetsButton, viewScoreButton, exitButton;
 
 	public HomePage(String name) {

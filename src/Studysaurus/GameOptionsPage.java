@@ -1,26 +1,26 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
-import javax.swing.border.Border;
 
 
 public class GameOptionsPage extends Page implements ActionListener {
-	  GridLayout layout = new GridLayout(2,2);
+	  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	GridLayout layout = new GridLayout(2,2);
 	  JButton playButton;
-	  JComboBox defaultSets, customSets;
+	  JComboBox<String> defaultSets, customSets;
 	  JRadioButton easyLevel, hardLevel;
 	     
 	    public GameOptionsPage(String name) {
@@ -52,13 +52,13 @@ public class GameOptionsPage extends Page implements ActionListener {
 	        //Add Default Set stuff
 	        defaultSetPanel.add(new JLabel("Default Sets"));
 	        String[] defaultSetList = {"2s Times Tables", "3s Times Tables"};
-	        defaultSets = new JComboBox(defaultSetList);
+	        defaultSets = new JComboBox<String>(defaultSetList);
 	        defaultSetPanel.add(defaultSets);
 	        
 	        //Add Custom Set stuff
 	        customSetPanel.add(new JLabel("Custon Sets"));
 	        String[] customSetList = {"Jenny's List", "Cam's List", "Jace's List", "Noodles"};
-	        customSets = new JComboBox(customSetList);
+	        customSets = new JComboBox<String>(customSetList);
 	        customSetPanel.add(customSets);
 	        
 	        //Add Level stuff 
@@ -69,7 +69,7 @@ public class GameOptionsPage extends Page implements ActionListener {
 	        levelPanel.add(hardLevel);
 	        
 	        //Add Play Button stuff
-	        JButton playButton = new JButton("Play Game!");
+	        playButton = new JButton("Play Game!");
 	        playButton.addActionListener(this);
 	        panel.add(playButton);
 
@@ -83,6 +83,7 @@ public class GameOptionsPage extends Page implements ActionListener {
 		if(obj == playButton){
 			PlayGamePage playGamePage = new PlayGamePage("Studysaurus");
 			createAndShowGUI(playGamePage);
+			this.dispose();
 		}
 		else if (obj == defaultSets){
 			//set Set

@@ -3,18 +3,18 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
 
-public class CreateSetPage extends Page implements ActionListener {
+public class CreateSetPage extends Page  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	GridLayout layout = new GridLayout(4,0);
 	JButton savePairButton, doneButton, cancelButton;
 	JTextField setNameBox, termBox, definitionBox;
@@ -94,6 +94,7 @@ public class CreateSetPage extends Page implements ActionListener {
 		else if(obj == doneButton){
 			HomePage homePage = new HomePage("HomePage");
 			createAndShowGUI(homePage);
+			this.dispose();
 		}
 		else if(obj == savePairButton){
 			//Save term and definition to DB
