@@ -56,15 +56,15 @@ public class Set{
       return;
    }
    public String toString(){
-      String ret = "";
-      ret += "Set: " + name + "\n";
-      Iterator<Pair<String, String>> it = this.termValue.iterator();
-      while(it.hasNext()) {
-         Pair<String, String> pair = it.next();
-         ret += pair + "\n";
-      }
-      ret += "End of set.\n";
-      return ret;
+	   String ret = "";
+	   ret += "Set: " + name + "\n";
+	   Iterator<Pair<String, String>> it = this.termValue.iterator();
+	   while(it.hasNext()) {
+		   Pair<String, String> pair = it.next();
+		   ret += pair + "\n";
+	   }
+	   ret += "End of set.\n";
+	   return ret;
    }
 
    public static void main(String[] args) {

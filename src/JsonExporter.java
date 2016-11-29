@@ -1,5 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
+
+import org.javatuples.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -14,16 +16,16 @@ public class JsonExporter {
 	public int export() {
 		JSONObject termValues = new JSONObject();
 
-		for (Pair pair : set.getPairs()) {
+		for (Pair pair : _set.getPairs()) {
 			termValues.put(pair.getValue0(), pair.getValue1());
 		}
 
-		set.put("name", set.getName());
-		set.put(set.getName(), termValues);
+		termValues.put("name", _set.getName());
+		termValues.put(_set.getName(), termValues);
 
 		try {
-			FileWriter file = new FileWriter("/home/user/Desktop/Studysaurus/Sets/" + set.getName() + ".json");
-			file.write(set.toJSONString());
+			FileWriter file = new FileWriter("/home/user/Desktop/Studysaurus/Sets/" + _set.getName() + ".json");
+			file.write(termValues.toJSONString());
 			file.flush();
 			file.close();
 		} 

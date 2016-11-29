@@ -1,6 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+
+import org.javatuples.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,14 +20,14 @@ public class JsonImporter {
 		_set = new Set();
 	}
 
-	private int import() {
+	private int ImportJson() {
 		JSONParser parser = new JSONParser();
 
 		try {
 			Object obj = parser.parse(new FileReader(_filePath));
 			JSONObject jObj = (JSONObject) obj;
 			String setName = (String) jObj.get("name");
-			JSONObject termValues = jObj.get(setName);
+			JSONObject termValues = (JSONObject) jObj.get(setName);
 
 			_set.setName(setName);
 
@@ -53,14 +55,14 @@ public class JsonImporter {
 	}
 
 	//TODO: insert set into DB
-	private int save() {
+	private int saveToDB() {
 
 	}
 
 	public int importAndSave() {
-		int success = import();
+		int success = ImportJson();
 		if (success) {
-			success = save();
+			success = saveToDB();
 		}
 		return success;
 	}

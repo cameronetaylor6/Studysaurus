@@ -1,5 +1,8 @@
 import java.util.Timer;
 import java.util.TimerTask;
+
+import org.javatuples.Pair;
+
 import java.util.List;
 
 public class Asteroid implements Subject {
