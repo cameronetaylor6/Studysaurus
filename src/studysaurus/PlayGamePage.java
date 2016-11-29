@@ -61,7 +61,6 @@ public class PlayGamePage extends Page {
 		
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == exitGameButton){

@@ -36,19 +36,17 @@ public class Asteroid implements Subject {
 		notifyObservers();
 	}
 
-	@Override
 	public void register(Observer obj) {
 		if(obj == null) throw new NullPointerException("null observer - asteroid");
 	
 		if(!_observers.contains(obj)) _observers.add(obj);
 	}
 
-	@Override
+	
 	public void unregister(Observer obj) {
 		_observers.remove(obj);
 	}
 
-	@Override
 	public void notifyObservers() {
 		List<Observer> obsTemp = null;
 		
@@ -59,7 +57,6 @@ public class Asteroid implements Subject {
 		}
 	}
 
-	@Override
 	public Object getUpdate(Observer obj) {
 		return _state;
 	}

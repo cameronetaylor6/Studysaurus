@@ -56,7 +56,7 @@ public final class GameClient implements Observer{
         return score;
     }
 
-    @Override
+    
     public void update(Subject sub) {
         if (sub instanceof Asteroid) {
             AsteroidState state = (AsteroidState) sub.getUpdate(this);
@@ -69,7 +69,7 @@ public final class GameClient implements Observer{
         }
     }
 
-    @Override
+    
     public void setSubject(Subject topic) {
         subjects.add(topic);
     }

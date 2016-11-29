@@ -96,7 +96,6 @@ public class EditSetPage extends Page {
 		
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		String newTerm, newDef;
 		Object obj = e.getSource();

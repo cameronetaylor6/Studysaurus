@@ -49,7 +49,6 @@ public class ViewScorePage extends Page {
 	        pane.add(new JSeparator(), BorderLayout.CENTER);
 	}
 
-		@Override
 		public void actionPerformed(ActionEvent e){
 			Object obj = e.getSource();
 			if(obj == doneButton){
