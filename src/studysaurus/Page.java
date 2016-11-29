@@ -1,61 +1,38 @@
+package studysaurus;
+
 import java.awt.*;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public abstract class Page extends JFrame implements Subject {
-	//private JLabel title;
-	private GridLayout layout;
-    private ArrayList<Observer> observers; 
-    private Object state;
-    
+public abstract class Page extends JFrame implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	final JPanel panel = new JPanel(); 
     public Page(String name) {
 		super(name);
 		setResizable(false);
 	}
-
-	//abstract void displayPage(String clickedButton);
-    abstract void addComponentsToPane(final Container pane);
+    
+    abstract void drawPage(final Container pane);
      
     /**
      * Create the GUI and show it.  For thread safety,
      * this method is invoked from the
      * event dispatch thread.
      */
-    private static void createAndShowGUI() {
+    public static void createAndShowGUI(Page page) {
         //Create and set up the window.
-        HomePage frame = new HomePage("Studysaurus");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        page.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
-        frame.addComponentsToPane(frame.getContentPane());
+        page.drawPage(page.getContentPane());
         //Display the window.
-        frame.pack();
-        frame.setVisible(true);
+        page.pack();
+        page.setVisible(true);
     }
 
-    @Override
-    public void register(Observer obj) {
-        if(obj == null) throw new NullPointerException("null observer - page");
-    
-        if(!observers.contains(obj)) observers.add(obj);
-    }
-
-    @Override
-    public void unregister(Observer obj) {
-        observers.remove(obj);
-    }
-
-    @Override
-    public void notifyObservers() {     
-        for (Observer obj : observers) {
-            obj.update();
-        }
-    }
-
-    @Override
-    public Object getUpdate(Observer obj) {
-        return state;
-    }
-     
     public static void main(String[] args) {
         /* Use an appropriate Look and Feel */
         try {
@@ -77,7 +54,8 @@ public abstract class Page extends JFrame implements Subject {
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+                HomePage page = new HomePage("Studysaurus");
+                createAndShowGUI(page);
             }
         });
     }

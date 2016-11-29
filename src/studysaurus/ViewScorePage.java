@@ -1,16 +1,26 @@
+package studysaurus;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 
 public class ViewScorePage extends Page {
-	 GridLayout layout = new GridLayout(4,0);
-     
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	GridLayout layout = new GridLayout(4,0);
+	JList<String> scoreList;
+    JButton doneButton;
+    
 	    public ViewScorePage(String name) {
 	        super(name);
 	    }
@@ -28,12 +38,26 @@ public class ViewScorePage extends Page {
 	                (int)(buttonSize.getHeight() * 6.5) * 2));
 	         
 	        //Add buttons to experiment with Grid Layout
-	        
-	        panel.add(new JButton("Play Game!"));
+	        String[] scores = {"100", "99", "98", "100"};
+	        scoreList = new JList<String>(scores);
+	        doneButton = new JButton("Done");
+	        doneButton.addActionListener(this);
+	        panel.add(scoreList);
+	        panel.add(doneButton);
 	       
 	        pane.add(panel, BorderLayout.NORTH);
 	        pane.add(new JSeparator(), BorderLayout.CENTER);
 	}
+
+		@Override
+		public void actionPerformed(ActionEvent e){
+			Object obj = e.getSource();
+			if(obj == doneButton){
+				HomePage homePage = new HomePage("HomePage");
+				createAndShowGUI(homePage);
+				this.dispose();
+			}
+		}
 
 
 

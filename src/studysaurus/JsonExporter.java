@@ -1,7 +1,7 @@
+package studysaurus;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.javatuples.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -17,7 +17,7 @@ public class JsonExporter {
 		JSONObject termValues = new JSONObject();
 
 		for (Pair pair : _set.getPairs()) {
-			termValues.put(pair.getValue0(), pair.getValue1());
+			termValues.put(pair.getTerm(), pair.getValue());
 		}
 
 		termValues.put("name", _set.getName());

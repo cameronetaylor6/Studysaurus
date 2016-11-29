@@ -1,24 +1,26 @@
+package studysaurus;
 import java.util.Iterator;
+import java.beans.Transient;
 import java.util.ArrayList;
-import java.util.List;
 
-import org.javatuples.Pair;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="Study_Set")
 public class Set{
-   private int id;
+   @Id
+   @GeneratedValue Integer idSet;
+   
    private String name;
-   private ArrayList<Pair<String, String>> termValue;  
+   private ArrayList<Pair> termValue;  
 
    public Set() {}
    public Set(String name) {
       this.name = name;
-      this.termValue = new ArrayList<Pair<String, String>>();
-   }
-   public int getId() {
-      return id;
-   }
-   public void setId( int id ) {
-      this.id = id;
+      this.termValue = new ArrayList<Pair>();
    }
    public String getName() {
       return name;
@@ -27,21 +29,24 @@ public class Set{
       //handle name errors
       this.name = newName;
    }
-   public ArrayList<Pair<String, String>> getPairs() {
+   
+   @Transient
+   public ArrayList<Pair> getPairs() {
       return termValue;
    }
-   public void setPairs(ArrayList<Pair<String, String>> newPairs){
+   public void setPairs(ArrayList<Pair> newPairs){
       //handle pairs errors
       this.termValue = newPairs;
       return;
    }
-   public void addPair(Pair<String, String> newPair) {
+   
+   public void addPair(Pair newPair) {
       termValue.add(newPair);
    }
-   public void deletePair(Pair<String, String> oldPair) {
-      Iterator<Pair<String, String>> it = termValue.iterator();
+   public void deletePair(Pair oldPair) {
+      Iterator<Pair> it = termValue.iterator();
       while(it.hasNext()) {
-         Pair<String, String> pair = it.next();
+         Pair pair = it.next();
          if (pair.equals(oldPair)) {
             it.remove();
             return;
@@ -50,17 +55,18 @@ public class Set{
       System.out.println("failure");
       //insert error code here
    }
-   public void editPair(Pair<String, String> oldPair, Pair<String, String> newPair) {
+   public void editPair(Pair oldPair, Pair newPair) {
       deletePair(oldPair);
       addPair(newPair);
       return;
    }
+   
    public String toString(){
 	   String ret = "";
 	   ret += "Set: " + name + "\n";
-	   Iterator<Pair<String, String>> it = this.termValue.iterator();
+	   Iterator<Pair> it = this.termValue.iterator();
 	   while(it.hasNext()) {
-		   Pair<String, String> pair = it.next();
+		   Pair pair = it.next();
 		   ret += pair + "\n";
 	   }
 	   ret += "End of set.\n";
@@ -69,7 +75,7 @@ public class Set{
 
    public static void main(String[] args) {
       Set s = new Set("dong");
-      Pair<String, String> dp = new Pair<String, String>("doggo", "pupper");
+      Pair dp = new Pair("doggo", "pupper", s.getName());
       s.addPair(dp);
       s.addPair(dp);
       s.addPair(dp);
