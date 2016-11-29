@@ -2,9 +2,11 @@ import java.awt.*;
 import javax.swing.*;
 
 
-public abstract class Page extends JFrame {
+public abstract class Page extends JFrame implements Subject {
 	//private JLabel title;
 	private GridLayout layout;
+    private ArrayList<Observer> observers; 
+    private Object state;
     
     public Page(String name) {
 		super(name);
@@ -28,6 +30,30 @@ public abstract class Page extends JFrame {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+    }
+
+    @Override
+    public void register(Observer obj) {
+        if(obj == null) throw new NullPointerException("null observer - page");
+    
+        if(!observers.contains(obj)) observers.add(obj);
+    }
+
+    @Override
+    public void unregister(Observer obj) {
+        observers.remove(obj);
+    }
+
+    @Override
+    public void notifyObservers() {     
+        for (Observer obj : observers) {
+            obj.update();
+        }
+    }
+
+    @Override
+    public Object getUpdate(Observer obj) {
+        return state;
     }
      
     public static void main(String[] args) {
