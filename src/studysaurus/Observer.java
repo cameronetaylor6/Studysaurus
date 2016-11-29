@@ -1,3 +1,4 @@
+package studysaurus;
 public interface Observer {
 
 	//used by subject to update the observer

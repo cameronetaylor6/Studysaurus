@@ -1,17 +1,21 @@
+package studysaurus;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 
-public class ManageSetsPage extends Page implements ActionListener {
-	 GridLayout layout = new GridLayout(5,0);
+public class ManageSetsPage extends Page{
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	GridLayout layout = new GridLayout(5,0);
 	 JButton createSetButton, editSetButton, importSetButton, exportSetButton, backButton;
      
 	    public ManageSetsPage(String name) {

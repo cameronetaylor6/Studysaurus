@@ -1,8 +1,8 @@
+package studysaurus;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.javatuples.Pair;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,7 +20,7 @@ public class JsonImporter {
 		_set = new Set();
 	}
 
-	private int ImportJson() {
+	private boolean ImportJson() {
 		JSONParser parser = new JSONParser();
 
 		try {
@@ -35,32 +35,33 @@ public class JsonImporter {
 				String termStr = (String) term;
 				Object value = jObj.get(termStr);
 				String valueStr = (String) value;
-				Pair<String, String> pair = new Pair<String, String>(termStr, valueStr);
+				Pair pair = new Pair(termStr, valueStr, _set.getName());
 				_set.addPair(pair);
 			}
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
-			return -1;
+			return false;
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
-			return -1;
+			return false;
 		} 
 		catch (ParseException e) {
 			e.printStackTrace();
-			return -1;
+			return false;
 		}
-		return 0;
+		return true;
 	}
 
 	//TODO: insert set into DB
-	private int saveToDB() {
+	private boolean saveToDB() {
+		return true;
 
 	}
 
-	public int importAndSave() {
-		int success = ImportJson();
+	public boolean importAndSave() {
+		boolean success = ImportJson();
 		if (success) {
 			success = saveToDB();
 		}

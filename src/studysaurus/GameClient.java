@@ -1,4 +1,5 @@
-import javax.swing.*; 
+package studysaurus;
+import javax.swing.*;
 
 public class GameClient {
 
@@ -18,19 +19,19 @@ public class GameClient {
     public void setCurrentSet(Set set) {
         currentSet = set;
     }
-    public Page getCurrentSet() {
+    public Set getCurrentSet() {
         return currentSet;
     }
     public void setDinosaurCount(int count) {
         dinosaurCount = count;
     }
-    public Page getDinosaurCount() {
+    public int getDinosaurCount() {
         return dinosaurCount;
     }
     public void setScore(Score _score) {
         score = _score;
     }
-    public Page getScore() {
+    public Score getScore() {
         return score;
     }
 
@@ -49,6 +50,7 @@ public class GameClient {
     }
     //TODO: complete
     public static Boolean checkAnswer(Pair answer) {
+		return null;
 
     }
     //TODO: compelte

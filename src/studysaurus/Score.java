@@ -1,5 +1,16 @@
+package studysaurus;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Study_Score")
 public class Score {
-	private int _id;
+	@Id
+	@GeneratedValue Integer idScore;
+	   
 	private String _userName;
 	private String _setName;
 	private int _score;
@@ -10,12 +21,6 @@ public class Score {
 		_score = score;
 	}
 
-	public int getId() {
-		return _id;
-	}
-	public void setId(int id) {
-		_id = id;
-	}
 	public String getUserName() {
 		return _userName;
 	}
