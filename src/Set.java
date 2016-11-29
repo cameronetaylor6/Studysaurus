@@ -2,6 +2,8 @@ import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.javatuples.Pair;
+
 public class Set{
    private int id;
    private String name;
@@ -39,7 +41,7 @@ public class Set{
    public void deletePair(Pair<String, String> oldPair) {
       Iterator<Pair<String, String>> it = termValue.iterator();
       while(it.hasNext()) {
-         Pair pair = it.next();
+         Pair<String, String> pair = it.next();
          if (pair.equals(oldPair)) {
             it.remove();
             return;
@@ -53,13 +55,27 @@ public class Set{
       addPair(newPair);
       return;
    }
+   public String toString(){
+      String ret = "";
+      ret += "Set: " + name + "\n";
+      Iterator<Pair<String, String>> it = this.termValue.iterator();
+      while(it.hasNext()) {
+         Pair<String, String> pair = it.next();
+         ret += pair + "\n";
+      }
+      ret += "End of set.\n";
+      return ret;
+   }
 
    public static void main(String[] args) {
       Set s = new Set("dong");
-      System.out.println(s.getName());
-      Pair<String, String> dp = new Pair("doggo", "pupper");
+      Pair<String, String> dp = new Pair<String, String>("doggo", "pupper");
       s.addPair(dp);
-      System.out.println(dp);
+      s.addPair(dp);
+      s.addPair(dp);
+      s.addPair(dp);
+      System.out.println(s);
       s.deletePair(dp);
+      System.out.println(s);
    }
 }
