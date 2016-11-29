@@ -5,34 +5,60 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public abstract class Page extends JFrame implements ActionListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	final JPanel panel = new JPanel(); 
+public abstract class Page extends JFrame implements ActionListener, Subject {
+	//private JLabel title;
+    private GridLayout layout;
+    private ArrayList<Observer> observers; 
+    private Object state;
+    
     public Page(String name) {
 		super(name);
 		setResizable(false);
 	}
-    
-    abstract void drawPage(final Container pane);
+
+	//abstract void displayPage(String clickedButton);
+    abstract void addComponentsToPane(final Container pane);
      
     /**
      * Create the GUI and show it.  For thread safety,
      * this method is invoked from the
      * event dispatch thread.
      */
-    public static void createAndShowGUI(Page page) {
+    private static void createAndShowGUI() {
         //Create and set up the window.
-        page.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        HomePage frame = new HomePage("Studysaurus");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
-        page.drawPage(page.getContentPane());
+        frame.addComponentsToPane(frame.getContentPane());
         //Display the window.
-        page.pack();
-        page.setVisible(true);
+        frame.pack();
+        frame.setVisible(true);
     }
 
+    @Override
+    public void register(Observer obj) {
+        if(obj == null) throw new NullPointerException("null observer - page");
+    
+        if(!observers.contains(obj)) observers.add(obj);
+    }
+
+    @Override
+    public void unregister(Observer obj) {
+        observers.remove(obj);
+    }
+
+    @Override
+    public void notifyObservers() {     
+        for (Observer obj : observers) {
+            obj.update();
+        }
+    }
+
+    @Override
+    public Object getUpdate(Observer obj) {
+        return state;
+    }
+     
     public static void main(String[] args) {
         /* Use an appropriate Look and Feel */
         try {
@@ -54,8 +80,7 @@ public abstract class Page extends JFrame implements ActionListener {
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                HomePage page = new HomePage("Studysaurus");
-                createAndShowGUI(page);
+                createAndShowGUI();
             }
         });
     }
