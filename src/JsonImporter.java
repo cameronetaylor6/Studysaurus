@@ -33,7 +33,7 @@ public class JsonImporter {
 				String termStr = (String) term;
 				Object value = jObj.get(termStr);
 				String valueStr = (String) value;
-				//TODO: create pair
+				Pair<String, String> pair = new Pair<String, String>(termStr, valueStr);
 				_set.addPair(pair);
 			}
 		}

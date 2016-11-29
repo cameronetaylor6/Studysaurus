@@ -14,10 +14,8 @@ public class JsonExporter {
 	public int export() {
 		JSONObject termValues = new JSONObject();
 
-		ArrayList<Pair<String, String>> pairs = set.getPairs();
-		for (Pair pair : pairs) {
-			//TODO: udpate with new pair
-			//termValues.put(pair.termString, pair.valueString);
+		for (Pair pair : set.getPairs()) {
+			termValues.put(pair.getValue0(), pair.getValue1());
 		}
 
 		set.put("name", set.getName());
