@@ -22,7 +22,6 @@ public class ManageSetsPage extends Page{
 	        super(name);
 	    }
 	    
-	    @Override
 	    public void drawPage(final Container pane) {
 	    	panel.setLayout(layout);
 	         
@@ -55,6 +54,7 @@ public class ManageSetsPage extends Page{
 	        pane.add(new JSeparator(), BorderLayout.CENTER);
 	}
 
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object obj = e.getSource();
 			if(obj == createSetButton){

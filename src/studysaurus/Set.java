@@ -1,20 +1,21 @@
 package studysaurus;
-import java.util.Iterator;
-import java.beans.Transient;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="Study_Set")
 public class Set{
    @Id
-   @GeneratedValue Integer idSet;
+   @GeneratedValue Integer id;
    
    private String name;
+   @Transient
    private ArrayList<Pair> termValue;  
 
    public Set() {}
@@ -30,15 +31,14 @@ public class Set{
       this.name = newName;
    }
    
-   @Transient
    public ArrayList<Pair> getPairs() {
       return termValue;
    }
    public void setPairs(ArrayList<Pair> newPairs){
       //handle pairs errors
       this.termValue = newPairs;
-      return;
    }
+   
    
    public void addPair(Pair newPair) {
       termValue.add(newPair);
@@ -71,17 +71,5 @@ public class Set{
 	   }
 	   ret += "End of set.\n";
 	   return ret;
-   }
-
-   public static void main(String[] args) {
-      Set s = new Set("dong");
-      Pair dp = new Pair("doggo", "pupper", s.getName());
-      s.addPair(dp);
-      s.addPair(dp);
-      s.addPair(dp);
-      s.addPair(dp);
-      System.out.println(s);
-      s.deletePair(dp);
-      System.out.println(s);
    }
 }

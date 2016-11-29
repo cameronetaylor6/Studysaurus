@@ -36,6 +36,7 @@ public class Asteroid implements Subject {
 		notifyObservers();
 	}
 
+	
 	public void register(Observer obj) {
 		if(obj == null) throw new NullPointerException("null observer - asteroid");
 	
@@ -47,6 +48,7 @@ public class Asteroid implements Subject {
 		_observers.remove(obj);
 	}
 
+	
 	public void notifyObservers() {
 		List<Observer> obsTemp = null;
 		
@@ -57,6 +59,7 @@ public class Asteroid implements Subject {
 		}
 	}
 
+	
 	public Object getUpdate(Observer obj) {
 		return _state;
 	}

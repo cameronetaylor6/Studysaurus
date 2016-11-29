@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name="Study_Score")
 public class Score {
 	@Id
-	@GeneratedValue Integer idScore;
+	@GeneratedValue Integer id;
 	   
 	private String _userName;
 	private String _setName;

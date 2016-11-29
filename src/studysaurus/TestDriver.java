@@ -26,7 +26,7 @@ public class TestDriver {
 	        
 	        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 	        Session session = sessionFactory.openSession();
-	        /*session.beginTransaction();
+	        session.beginTransaction();
 	         
 	        for (Score score : scoreList){
 	            session.save(score);
@@ -36,7 +36,7 @@ public class TestDriver {
 	        session.getTransaction().commit();
 	        session.close();
 	        
-	        session = sessionFactory.openSession();*/
+	        session = sessionFactory.openSession();
 	        session.beginTransaction();
 	         
 	        for (Set set : sets){
@@ -47,7 +47,7 @@ public class TestDriver {
 	        session.getTransaction().commit();
 	        session.close();
 	        
-	        /*session = sessionFactory.openSession();
+	        session = sessionFactory.openSession();
 	        session.beginTransaction();
 	         
 	        for (Pair pair : s.getPairs()){
@@ -56,7 +56,7 @@ public class TestDriver {
 	        }
 	         
 	        session.getTransaction().commit();
-	        session.close();*/
+	        session.close();
 	        sessionFactory.close();
 	    }
 }

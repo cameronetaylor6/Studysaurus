@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name="Study_Pair")
 public class Pair{
     @Id
-    @GeneratedValue Integer idPair;
+    @GeneratedValue Integer id;
 
     private String term;
     private String value;

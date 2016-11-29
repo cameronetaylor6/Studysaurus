@@ -23,7 +23,6 @@ public class PlayGamePage extends Page {
 		super(name);
 	}
 
-	@Override
 	void drawPage(Container pane) {
 		panel.setLayout(layout);
 		JButton b = new JButton("Just fake button");
@@ -61,6 +60,7 @@ public class PlayGamePage extends Page {
 		
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == exitGameButton){

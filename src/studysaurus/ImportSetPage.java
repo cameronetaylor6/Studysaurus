@@ -28,7 +28,6 @@ public class ImportSetPage extends Page {
 		super(name);
 	}
 
-	@Override
 	void drawPage(Container pane) {
 		panel.setLayout(layout);
 		
@@ -74,6 +73,7 @@ public class ImportSetPage extends Page {
 		
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == browseButton){

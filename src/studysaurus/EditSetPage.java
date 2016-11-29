@@ -26,7 +26,6 @@ public class EditSetPage extends Page {
 		super(name);
 	}
 
-	@Override
 	void drawPage(Container pane) {
 		panel.setLayout(layout);
 		
@@ -96,6 +95,7 @@ public class EditSetPage extends Page {
 		
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		String newTerm, newDef;
 		Object obj = e.getSource();

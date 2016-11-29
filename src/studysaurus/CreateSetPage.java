@@ -27,7 +27,7 @@ public class CreateSetPage extends Page  {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
+	
 	void drawPage(Container pane) {
 		panel.setLayout(layout);
     	

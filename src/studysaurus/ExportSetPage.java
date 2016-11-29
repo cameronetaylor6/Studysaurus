@@ -28,7 +28,6 @@ public class ExportSetPage extends Page {
 		super(name);
 	}
 
-	@Override
 	void drawPage(Container pane) {
 		panel.setLayout(layout);
 		JPanel selectSetPanel = new JPanel(new GridLayout(2,0));
@@ -66,6 +65,7 @@ public class ExportSetPage extends Page {
 		
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == selectSetToExport){
