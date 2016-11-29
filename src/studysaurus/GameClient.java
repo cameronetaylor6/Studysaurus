@@ -1,13 +1,34 @@
 package studysaurus;
+
 import javax.swing.*;
 
-public class GameClient {
+import studysaurus.Asteroid.AsteroidState;
+
+import java.util.ArrayList;
+
+public final class GameClient implements Observer{
+    private static final GameClient instance = new GameClient();
 
     //instance variables
     private Page currentPage;
     private Set currentSet;
+    private int difficulty;
     private int dinosaurCount;
-    private Score score;
+    private static Score score;
+    private ArrayList<Subject> subjects;
+
+    private GameClient() {
+        currentPage = new HomePage("Studysaurus");
+        currentSet = null;
+        difficulty = 0;
+        dinosaurCount = 0;
+        score = null;
+        subjects = null;
+    }
+
+    public static GameClient getInstance() {
+        return instance;
+    }
 
     //getters and setters
     public void setCurrentPage(Page page) {
@@ -35,6 +56,24 @@ public class GameClient {
         return score;
     }
 
+    @Override
+    public void update(Subject sub) {
+        if (sub instanceof Asteroid) {
+            AsteroidState state = (AsteroidState) sub.getUpdate(this);
+            if(state.diffused == true){
+                incrementScore();
+            }
+        }
+        else if (sub instanceof GameOptionsPage) {
+            difficulty = (int) sub.getUpdate(this);
+        }
+    }
+
+    @Override
+    public void setSubject(Subject topic) {
+        subjects.add(topic);
+    }
+
     //methods
     //TODO: compelte
     private static void displayHomePage() {
@@ -48,7 +87,7 @@ public class GameClient {
     private static void displayFailurePage() {
 
     }
-    //TODO: complete
+    //TODO: also update current pair
     public static Boolean checkAnswer(Pair answer) {
 		return null;
 
@@ -57,9 +96,11 @@ public class GameClient {
     private static void createAsteroid(Pair termValue) {
 
     }
-    //TODO: complete
-    private static void incrementScore() {
+    
 
+    private static void incrementScore() {
+        int cur = score.getScore();
+        score.setScore(cur + 100);
     }
 
     private static void createFrame() {

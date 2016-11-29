@@ -27,16 +27,16 @@ public class Score {
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
-	public String getsetName() {
+	public String getSetName() {
 		return _setName;
 	}
-	public void setsetName(String setName) {
+	public void setSetName(String setName) {
 		_setName = setName;
 	}
-	public int getscore() {
+	public int getScore() {
 		return _score;
 	}
-	public void setscore(int score) {
+	public void setScore(int score) {
 		_score = score;
 	}
 

@@ -55,7 +55,7 @@ public class Asteroid implements Subject {
 		if (!_state.impacted && !_state.diffused) return;
 	
 		for (Observer obj : _observers) {
-			obj.update();
+			obj.update(this);
 		}
 	}
 
