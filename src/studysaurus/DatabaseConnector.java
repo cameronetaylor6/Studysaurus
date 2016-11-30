@@ -32,7 +32,7 @@ public class DatabaseConnector {
 			//idk if returning null here is appropriate
 			return null;
 		}
-		Set selectedSet = new Set(setName);
+		Set selectedSet = new Set(setName, selectedSetList.get(0).getType());
 		hql = "Select P FROM Pair P WHERE P.ownerSet = '" + setName + "'";
 		query = session.createQuery(hql);
 		ArrayList<Pair> selectedPairList = (ArrayList<Pair>) query.list();
