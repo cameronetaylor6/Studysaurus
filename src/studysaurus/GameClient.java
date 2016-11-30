@@ -14,16 +14,22 @@ public final class GameClient implements Observer{
     private Set currentSet;
     private int difficulty;
     private int dinosaurCount;
+    private Pair currentPair;
+    private Pair guess;
     private static Score score;
     private ArrayList<Subject> subjects;
+    private ArrayList<Asteroid> asteroids;
 
     private GameClient() {
         currentPage = new HomePage("Studysaurus");
         currentSet = null;
         difficulty = 0;
         dinosaurCount = 0;
+        currentPair = null;
+        guess = null;
         score = null;
         subjects = null;
+        asteroids = null;
     }
 
     public static GameClient getInstance() {
@@ -43,11 +49,23 @@ public final class GameClient implements Observer{
     public Set getCurrentSet() {
         return currentSet;
     }
+    public void setDifficulty(int dif) {
+    	difficulty = dif;
+    }
+    public int getDifficulty() {
+    	return difficulty;
+    }
     public void setDinosaurCount(int count) {
         dinosaurCount = count;
     }
     public int getDinosaurCount() {
         return dinosaurCount;
+    }
+    public void setGuess(Pair _guess) {
+    	guess = _guess;
+    }
+    public Pair getGuess() {
+    	return guess;
     }
     public void setScore(Score _score) {
         score = _score;
@@ -59,12 +77,27 @@ public final class GameClient implements Observer{
     public void update(Subject sub) {
         if (sub instanceof Asteroid) {
             AsteroidState state = (AsteroidState) sub.getUpdate(this);
-            if(state.diffused == true){
-                incrementScore();
+            if(state.impacted == true && state.diffused == false) {
+                //  destroy asteroid?
             }
         }
         else if (sub instanceof GameOptionsPage) {
             difficulty = (int) sub.getUpdate(this);
+        }
+        else if (sub instanceof PlayGamePage) {
+        	guess = (Pair) sub.getUpdate(this);
+        	if (checkAnswer(guess)) {
+        		incrementScore();
+        		//TODO: update new pair
+        	}
+        	else {
+        		if (dinosaurCount > 0) {
+        			dinosaurCount--;
+        		}
+        		else {
+        			dinosaurCount = 0;
+        		}
+        	}
         }
     }
 
@@ -85,10 +118,13 @@ public final class GameClient implements Observer{
     private static void displayFailurePage() {
 
     }
-    //TODO: also update current pair
-    public static Boolean checkAnswer(Pair answer) {
-		return null;
-
+    public static Boolean checkAnswer(Pair guess) {
+		if (currentPair.value.toLowerCase() == guess.value.toLowerCase()) {
+			return true;
+		}
+		else {
+			return false;
+		}
     }
     //TODO: compelte
     private static void createAsteroid(Pair termValue) {

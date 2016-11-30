@@ -95,9 +95,13 @@ public class GameOptionsPage extends Page implements ActionListener {
 		}
 		else if (obj == easyLevel){
 			//set Level
+			state = 8;
+			notifyObservers();
 		}
 		else if (obj == hardLevel){
 			//set Level
+			state = 4;
+			notifyObservers();
 		}
 	}
 
