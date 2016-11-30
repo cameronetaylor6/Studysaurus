@@ -20,18 +20,23 @@ public class DatabaseConnector {
         sessionFactory.close();
         return results;
 	}
-	/* Cam! Here's what I have so far
 	public Set selectSet(String setName){
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		String hql = "Select S FROM Set S WHERE S.name = '" + setName + "'";
 		Query query = session.createQuery(hql);
-		ArrayList<String> selectedSetList = (ArrayList<String>) query.list();
-		Set selectedSet = new Set(setName)
+		ArrayList<Set> selectedSetList = (ArrayList<Set>) query.list();
+		Set selectedSet = new Set(setName);
+		hql = "Select P FROM Pair P WHERE P.ownerSet = '" + setName + "'";
+		query = session.createQuery(hql);
+		ArrayList<Pair> selectedPairList = (ArrayList<Pair>) query.list();
+		for(Pair p: selectedPairList){
+			selectedSet.addPair(p);
+		}
 		session.close();
 		sessionFactory.close();
 		return selectedSet;
-	}*/
+	}
 	 public static void main(String[] args){
 		 DatabaseConnector dc = new DatabaseConnector();
 		 ArrayList<String> ls = dc.getSets();
