@@ -70,8 +70,9 @@ public class PlayGamePage extends Page {
 		}
 		else if(obj == definitionField){
 			@SuppressWarnings("unused")
-			String inputText = definitionField.getText();
+			state = definitionField.getText();
 			//compare
+			notifyObservers();
 		}
 	}
 
