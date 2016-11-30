@@ -47,7 +47,6 @@ public class Set{
 	   return termValue.iterator();
    }
    
-   
    public void addPair(Pair newPair) {
       termValue.add(newPair);
    }
@@ -67,6 +66,21 @@ public class Set{
       deletePair(oldPair);
       addPair(newPair);
       return;
+   }
+   
+   public ArrayList<String> getTerms(){
+	   ArrayList<String> terms = new ArrayList<String>();
+	   for(Pair pair: termValue){
+		   terms.add(pair.getTerm());
+	   }
+	   return terms;
+   }
+   public ArrayList<String> getValues(){
+	   ArrayList<String> values = new ArrayList<String>();
+	   for(Pair pair: termValue){
+		   values.add(pair.getValue());
+	   }
+	   return values;
    }
    
    public String toString(){
