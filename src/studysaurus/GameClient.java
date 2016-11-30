@@ -20,7 +20,15 @@ public final class GameClient implements Observer{
     private ArrayList<Subject> subjects;
     private ArrayList<Asteroid> asteroids;
 
-    private GameClient() {
+    public Pair getCurrentPair() {
+		return currentPair;
+	}
+
+	public void setCurrentPair(Pair currentPair) {
+		this.currentPair = currentPair;
+	}
+
+	private GameClient() {
         currentPage = new HomePage("Studysaurus");
         Page.createAndShowGUI(currentPage);
         currentSet = null;

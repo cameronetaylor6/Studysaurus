@@ -18,6 +18,7 @@ public class PlayGamePage extends Page {
 	GridLayout layout = new GridLayout(1,1);
 	JTextField termField, definitionField, scoreField;
 	JButton exitGameButton;
+	GameClient gc = GameClient.getInstance();
 
 	public PlayGamePage(String name) {
 		super(name);
@@ -34,8 +35,10 @@ public class PlayGamePage extends Page {
 		
 		JLabel termLabel = new JLabel("Term");
 		termLabel.setFont(new Font("Serif", Font.PLAIN, 20));
-		termField = new JTextField();
-		termField.setEditable(false);
+		termField = new JTextField("Noodles");
+		//Pair currentPair = gc.getCurrentPair();
+		//termField = new JTextField(currentPair.getTerm());
+	    termField.setEditable(false);
 		JLabel definitionLabel = new JLabel("Definition");
 		definitionLabel.setFont(new Font("Serif", Font.PLAIN, 20));
 		definitionField = new JTextField();
