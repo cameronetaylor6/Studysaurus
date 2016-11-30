@@ -26,6 +26,12 @@ public class DatabaseConnector {
 		String hql = "Select S FROM Set S WHERE S.name = '" + setName + "'";
 		Query query = session.createQuery(hql);
 		ArrayList<Set> selectedSetList = (ArrayList<Set>) query.list();
+		if(!selectedSetList.get(0).getName().equals(setName)){
+			session.close();
+			sessionFactory.close();
+			//idk if returning null here is appropriate
+			return null;
+		}
 		Set selectedSet = new Set(setName);
 		hql = "Select P FROM Pair P WHERE P.ownerSet = '" + setName + "'";
 		query = session.createQuery(hql);
