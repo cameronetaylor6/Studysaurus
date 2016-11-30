@@ -22,6 +22,7 @@ public final class GameClient implements Observer{
 
     private GameClient() {
         currentPage = new HomePage("Studysaurus");
+        Page.createAndShowGUI(currentPage);
         currentSet = null;
         difficulty = 0;
         dinosaurCount = 0;
@@ -118,8 +119,8 @@ public final class GameClient implements Observer{
     private static void displayFailurePage() {
 
     }
-    public static Boolean checkAnswer(Pair guess) {
-		if (currentPair.value.toLowerCase() == guess.value.toLowerCase()) {
+    public Boolean checkAnswer(Pair guess) {
+		if (currentPair.getValue().toLowerCase() == guess.getValue().toLowerCase()) {
 			return true;
 		}
 		else {

@@ -58,5 +58,7 @@ public class TestDriver {
 	        session.getTransaction().commit();
 	        session.close();
 	        sessionFactory.close();
+	        
+	        GameClient gc = GameClient.getInstance();
 	    }
 }

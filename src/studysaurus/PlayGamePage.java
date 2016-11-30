@@ -60,7 +60,6 @@ public class PlayGamePage extends Page {
 		
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == exitGameButton){
@@ -69,8 +68,7 @@ public class PlayGamePage extends Page {
 			this.dispose();
 		}
 		else if(obj == definitionField){
-			@SuppressWarnings("unused")
-			state = new Pair(termField.getText(),definitionField.getText(),null);
+			//state = new Pair(termField.getText(),definitionField.getText(),null);
 			//compare
 			notifyObservers();
 			//TODO: load in next term, clear value

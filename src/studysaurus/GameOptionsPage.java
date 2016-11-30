@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -24,12 +25,14 @@ public class GameOptionsPage extends Page implements ActionListener {
 	  JButton playButton;
 	  JComboBox<String> defaultSets, customSets;
 	  JRadioButton easyLevel, hardLevel;
+	  GameClient gc = GameClient.getInstance();
 	     
 	    public GameOptionsPage(String name) {
 	        super(name);
 	    }
 	    
-	    @Override
+	    @SuppressWarnings("unchecked")
+		@Override
 	    public void drawPage(final Container pane) {
 	    	
 	    	panel.setLayout(layout);
@@ -53,8 +56,10 @@ public class GameOptionsPage extends Page implements ActionListener {
 	         
 	        //Add Default Set stuff
 	        defaultSetPanel.add(new JLabel("Default Sets"));
-	        String[] defaultSetList = {"2s Times Tables", "3s Times Tables"};
-	        defaultSets = new JComboBox<String>(defaultSetList);
+	        //String[] defaultSetList = {"2s Times Tables", "3s Times Tables"};
+	        DatabaseConnector dc = new DatabaseConnector();
+	        ArrayList<String> defaultSetList = dc.getSets();
+	        defaultSets = new JComboBox(defaultSetList.toArray());
 	        defaultSetPanel.add(defaultSets);
 	        
 	        //Add Custom Set stuff
@@ -88,7 +93,8 @@ public class GameOptionsPage extends Page implements ActionListener {
 			this.dispose();
 		}
 		else if (obj == defaultSets){
-			//set Set
+			String selectedSet = (String) defaultSets.getSelectedItem();
+			//gc.setCurrentSet(selectedSet);
 		}
 		else if (obj == customSets){
 			//set Set

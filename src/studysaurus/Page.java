@@ -16,7 +16,7 @@ public abstract class Page extends JFrame implements ActionListener, Subject {
 	//private JLabel title;
     private GridLayout layout;
     private ArrayList<Observer> observers; 
-    private Object state;
+    public Object state;
     
     public Page(String name) {
 		super(name);
