@@ -47,7 +47,7 @@ public class DatabaseConnector {
 		 DatabaseConnector dc = new DatabaseConnector();
 		 ArrayList<String> ls = dc.getSets(false);
 		 System.out.println(ls);
-		 //Set ss = dc.selectSet("dong");
+		 //Set ss = dc.selectSet("BasicTimesTable");
 		 //System.out.print(ss);
 	 }
 
