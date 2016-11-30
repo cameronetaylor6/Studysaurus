@@ -93,7 +93,8 @@ public class GameOptionsPage extends Page implements ActionListener {
 			this.dispose();
 		}
 		else if (obj == defaultSets){
-			String selectedSet = (String) defaultSets.getSelectedItem();
+			String selectedSetName = (String)defaultSets.getSelectedItem();
+			
 			//gc.setCurrentSet(selectedSet);
 		}
 		else if (obj == customSets){

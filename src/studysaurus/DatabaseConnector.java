@@ -20,10 +20,23 @@ public class DatabaseConnector {
         sessionFactory.close();
         return results;
 	}
-	
+	/* Cam! Here's what I have so far
+	public Set selectSet(String setName){
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		String hql = "Select S FROM Set S WHERE S.name = '" + setName + "'";
+		Query query = session.createQuery(hql);
+		ArrayList<String> selectedSetList = (ArrayList<String>) query.list();
+		Set selectedSet = new Set(setName)
+		session.close();
+		sessionFactory.close();
+		return selectedSet;
+	}*/
 	 public static void main(String[] args){
 		 DatabaseConnector dc = new DatabaseConnector();
 		 ArrayList<String> ls = dc.getSets();
 		 System.out.println(ls);
+		 Set ss = dc.selectSet("dong");
+		 System.out.print(ss);
 	 }
 }
