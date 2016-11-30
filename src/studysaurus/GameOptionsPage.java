@@ -56,9 +56,8 @@ public class GameOptionsPage extends Page implements ActionListener {
 	         
 	        //Add Default Set stuff
 	        defaultSetPanel.add(new JLabel("Default Sets"));
-	        //String[] defaultSetList = {"2s Times Tables", "3s Times Tables"};
 	        DatabaseConnector dc = new DatabaseConnector();
-	        ArrayList<String> defaultSetList = dc.getSets();
+	        ArrayList<String> defaultSetList = dc.getSets("default");
 	        defaultSets = new JComboBox(defaultSetList.toArray());
 	        defaultSetPanel.add(defaultSets);
 	        
@@ -94,7 +93,7 @@ public class GameOptionsPage extends Page implements ActionListener {
 		}
 		else if (obj == defaultSets){
 			String selectedSetName = (String)defaultSets.getSelectedItem();
-			
+			//set Set
 			//gc.setCurrentSet(selectedSet);
 		}
 		else if (obj == customSets){

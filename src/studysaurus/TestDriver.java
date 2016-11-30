@@ -16,7 +16,7 @@ public class TestDriver {
 	        scoreList.add(new Score("CET", "pitbull", 0));
 	        	        
 	        ArrayList<Set> sets = new ArrayList<Set>();
-	        Set s = new Set("dong");
+	        Set s = new Set("dong", "default");
 	        Pair dp = new Pair("doggo", "pupper", s.getName());
 	        Pair pd = new Pair("pupper", "doggo", s.getName());
 	        s.addPair(dp);
