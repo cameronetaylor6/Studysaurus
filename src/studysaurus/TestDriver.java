@@ -24,6 +24,14 @@ public class TestDriver {
 	        
 	        sets.add(s);
 	        
+	        Set s2 = new Set("noodle", "custom");
+	        Pair n1 = new Pair("spaghetti", "marinara", s.getName());
+	        Pair n2 = new Pair("jack", "sparrow", s.getName());
+	        s.addPair(n1);
+	        s.addPair(n2);
+	        
+	        sets.add(s2);
+	        
 	        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 	        Session session = sessionFactory.openSession();
 	        session.beginTransaction();
