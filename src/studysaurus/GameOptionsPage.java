@@ -40,9 +40,8 @@ public class GameOptionsPage extends Page implements ActionListener {
 	    	//Set up sub-panels
 	        JPanel defaultSetPanel = new JPanel(new GridLayout(1,1));
 	        JPanel customSetPanel = new JPanel(new GridLayout(1,1));
-	        JPanel levelPanel = new JPanel(new GridLayout(2,2));
 	        JPanel radioButtonPanel = new JPanel(new GridLayout(0,2));
-	        radioButtonPanel.add(levelPanel);
+	        JPanel levelPanel = new JPanel(new GridLayout(2,2));
 	        panel.add(defaultSetPanel);
 	        panel.add(radioButtonPanel);
 	        panel.add(customSetPanel);
@@ -54,26 +53,30 @@ public class GameOptionsPage extends Page implements ActionListener {
 	        panel.setPreferredSize(new Dimension((int)(buttonSize.getWidth() * 5.5),
 	                (int)(buttonSize.getHeight() * 6.5) * 2));
 	         
+	        //TODO: Make it so that only one set can be selected
+	        
 	        //Add Default Set stuff
 	        defaultSetPanel.add(new JLabel("Default Sets"));
-	        //String[] defaultSetList = {"2s Times Tables", "3s Times Tables"};
 	        DatabaseConnector dc = new DatabaseConnector();
-	        ArrayList<String> defaultSetList = dc.getSets();
+	        ArrayList<String> defaultSetList = dc.getSets("default");
 	        defaultSets = new JComboBox(defaultSetList.toArray());
 	        defaultSetPanel.add(defaultSets);
 	        
 	        //Add Custom Set stuff
-	        customSetPanel.add(new JLabel("Custon Sets"));
-	        String[] customSetList = {"Jenny's List", "Cam's List", "Jace's List", "Noodles"};
-	        customSets = new JComboBox<String>(customSetList);
+	        customSetPanel.add(new JLabel("Custom Sets"));
+	        ArrayList<String> customSetList = dc.getSets("custom");
+	        customSets = new JComboBox(customSetList.toArray());
 	        customSetPanel.add(customSets);
 	        
-	        //Add Level stuff 
-	        radioButtonPanel.add(new JLabel("Select a Level:"));
+	        //Add Level stuff
+	        //TODO: Make it so that only one can be selected
 	        easyLevel = new JRadioButton("Easy");
 	        hardLevel = new JRadioButton("Hard");
 	        levelPanel.add(easyLevel);
 	        levelPanel.add(hardLevel);
+	        radioButtonPanel.add(new JLabel("Select a Level:"));
+	        radioButtonPanel.add(levelPanel);
+
 	        
 	        //Add Play Button stuff
 	        playButton = new JButton("Play Game!");
@@ -94,7 +97,7 @@ public class GameOptionsPage extends Page implements ActionListener {
 		}
 		else if (obj == defaultSets){
 			String selectedSetName = (String)defaultSets.getSelectedItem();
-			
+			//set Set
 			//gc.setCurrentSet(selectedSet);
 		}
 		else if (obj == customSets){
