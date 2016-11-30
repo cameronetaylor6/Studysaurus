@@ -15,6 +15,7 @@ public class Pair{
     private String value;
     private String ownerSet;
      
+    public Pair() {}
     public Pair(String trm, String val, String owner){
         this.term = trm;
         this.value = val;

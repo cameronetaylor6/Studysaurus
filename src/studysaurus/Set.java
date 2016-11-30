@@ -17,24 +17,24 @@ public class Set{
    @GeneratedValue Integer id;
    
    private String name;
-   private String type;
+   private boolean custom;
    @Transient
    private ArrayList<Pair> termValue;  
 
    public Set() {}
-   public Set(String name, String type) {
+   public Set(String name, boolean cust) {
       this.name = name;
-      this.type = type;
+      this.custom = cust;
       this.termValue = new ArrayList<Pair>();
    }
    public String getName() {
       return name;
    }
-   public String getType() {
-	return type;
+   public boolean getCustom() {
+	return custom;
 }
-public void setType(String type) {
-	this.type = type;
+public void setCustom(boolean cust) {
+	this.custom = cust;
 }
 public void setName(String newName) {
       //handle name errors
