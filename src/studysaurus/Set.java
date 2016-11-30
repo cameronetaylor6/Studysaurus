@@ -1,6 +1,8 @@
 package studysaurus;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,6 +39,12 @@ public class Set{
    public void setPairs(ArrayList<Pair> newPairs){
       //handle pairs errors
       this.termValue = newPairs;
+   }
+   
+   public Iterator<Pair> randomizeSet() {
+	   long seed = System.nanoTime();
+	   Collections.shuffle(termValue, new Random(seed));
+	   return termValue.iterator();
    }
    
    
