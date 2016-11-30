@@ -5,6 +5,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +22,12 @@ public class CreateSetPage extends Page  {
 	GridLayout layout = new GridLayout(4,0);
 	JButton savePairButton, doneButton, cancelButton;
 	JTextField setNameBox, termBox, definitionBox;
+	
+	static /*Things that will be saved to DB when 'Done' is pressed
+	 * 
+	 */
+	Set newSet;
+	ArrayList<Pair> pairs = new ArrayList<Pair>();
 	
 
 	public CreateSetPage(String name) {
@@ -94,21 +102,27 @@ public class CreateSetPage extends Page  {
 			this.dispose();
 		}
 		else if(obj == doneButton){
+			/*Created Set is ready to do-- create Set object with Pairs added, open HomePage*/
+			newSet = new Set(setNameBox.getText(), true); //Custom is true bc we created it
+			for(int i = 0; i < pairs.size(); i++){
+				newSet.addPair(pairs.get(i));
+			}
+			System.out.print(newSet.toString());
+			//save newSet to the database
 			HomePage homePage = new HomePage("HomePage");
 			createAndShowGUI(homePage);
 			this.dispose();
 		}
 		else if(obj == savePairButton){
-			//Save term and definition to DB
+			pairs.add(new Pair(termBox.getText(), definitionBox.getText(), setNameBox.getText()));
 			termBox.setText("");
 			definitionBox.setText("");
-		}
-		else if(obj == setNameBox){
-			//Save name to DB
-		}
-			
-		
+		}	
 		
 	}
+	 public static void main(String[] args){
+		 CreateSetPage c = new CreateSetPage("StudysaurusTest");
+		 createAndShowGUI(c);
+	 }
 
 }
