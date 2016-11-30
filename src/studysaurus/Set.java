@@ -70,6 +70,15 @@ public void setName(String newName) {
       System.out.println("failure");
       //insert error code here
    }
+   public boolean contains(Pair pair) {
+	    Iterator<Pair> it = this.termValue.iterator();
+	    while(it.hasNext()) {
+	       Pair curr = it.next();
+	       if (curr.equals(pair)) {
+	          return true;
+	       }
+	    } return false;
+	}
    public void editPair(Pair oldPair, Pair newPair) {
       deletePair(oldPair);
       addPair(newPair);
@@ -102,4 +111,5 @@ public void setName(String newName) {
 	   ret += "End of set.\n";
 	   return ret;
    }
+
 }

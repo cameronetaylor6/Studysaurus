@@ -23,16 +23,14 @@ public class CreateSetPage extends Page  {
 	JButton savePairButton, doneButton, cancelButton;
 	JTextField setNameBox, termBox, definitionBox;
 	
-	static /*Things that will be saved to DB when 'Done' is pressed
-	 * 
-	 */
-	Set newSet;
-	ArrayList<Pair> pairs = new ArrayList<Pair>();
+	/*Things that will be saved to DB when 'Done' is pressed*/
+	static Set newSet;
+	ArrayList<Pair> pairs;
 	
 
 	public CreateSetPage(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
+		pairs = new ArrayList<Pair>();
 	}
 
 	

@@ -13,14 +13,13 @@ public abstract class Page extends JFrame implements ActionListener, Subject {
 	 */
 	private static final long serialVersionUID = 1L;
 	final JPanel panel = new JPanel(); 
-	//private JLabel title;
     private GridLayout layout;
     private ArrayList<Observer> observers; 
     public Object state;
     
     public Page(String name) {
 		super(name);
-		setResizable(false);
+		setResizable(true);
 	}
     
     abstract void drawPage(final Container pane);

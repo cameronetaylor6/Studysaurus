@@ -4,11 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.MutableComboBoxModel;
 
 
 public class EditSetPage extends Page {
@@ -20,10 +24,18 @@ public class EditSetPage extends Page {
 	JButton addPairButton, deletePairButton, editPairButton, doneButton;
 	JTextField editTerm, editDefinition, addTerm, addDefinition, deleteTerm, deleteDefinition;
 	JComboBox<String> selectSetComboBox, selectPairEditComboBox, selectPairDeleteComboBox;
+	DatabaseConnector dc;
+	
+	String setName;
+	Set setToEdit= new Set();
+	ArrayList<Pair> pairs = new ArrayList<Pair>();
+	MutableComboBoxModel<String> editModel;
+	MutableComboBoxModel<String> deleteModel;
 	
 
 	public EditSetPage(String name) {
 		super(name);
+		dc = new DatabaseConnector();
 	}
 
 	void drawPage(Container pane) {
@@ -31,7 +43,7 @@ public class EditSetPage extends Page {
 		
 		//Set up sub-panels
 		JPanel selectSetPanel = new JPanel(new GridLayout(1,1));
-		JPanel addPairPanel = new JPanel(new GridLayout(1,3));
+		JPanel addPairPanel = new JPanel(new GridLayout(1,4));
 		JPanel editPairPanel = new JPanel(new GridLayout(1,4));
 		JPanel deletePairPanel = new JPanel(new GridLayout(1,4));
 		panel.add(selectSetPanel);
@@ -40,8 +52,8 @@ public class EditSetPage extends Page {
 		panel.add(deletePairPanel);
 		
 		//Stuff for selectSetPanel
-	    String[] setNames = {"Set1", "Set2", "Set3"};
-	    selectSetComboBox = new JComboBox<String>(setNames);
+		ArrayList<String> setNames = dc.getSets(true);
+	    selectSetComboBox = new JComboBox(setNames.toArray());
 	    selectSetComboBox.addActionListener(this);
 	    selectSetPanel.add(new JLabel("Select a set to edit:"));
 	    selectSetPanel.add(selectSetComboBox);
@@ -51,14 +63,19 @@ public class EditSetPage extends Page {
 	    addTerm.addActionListener(this);
 	    addDefinition = new JTextField();
 	    addDefinition.addActionListener(this);
+	    addPairButton = new JButton("SavePair");
+	    addPairButton.addActionListener(this);
 	    addPairPanel.add(new JLabel("Add Pair"));
 	    addPairPanel.add(addTerm);
 	    addPairPanel.add(addDefinition);
+	    addPairPanel.add(addPairButton);
 	    
 	    //Stuff for editPairPanel
-	    String[] pairs = {"Hello : Hola", "Goodbye : Adios"};
-	    selectPairEditComboBox = new JComboBox<String>(pairs);
+	    
+	    selectPairEditComboBox = new JComboBox();
+	    editModel = (MutableComboBoxModel<String>) selectPairEditComboBox.getModel();
 	    selectPairEditComboBox.addActionListener(this);
+	    
 	    editTerm = new JTextField();
 	    editTerm.addActionListener(this);
 	    editDefinition = new JTextField();
@@ -72,7 +89,8 @@ public class EditSetPage extends Page {
 	    editPairPanel.add(editPairButton);
 	    
 	    //Stuff for deletePairPanel
-	    selectPairDeleteComboBox = new JComboBox<String>(pairs);
+	    selectPairDeleteComboBox = new JComboBox();
+	    deleteModel = (MutableComboBoxModel<String>) selectPairDeleteComboBox.getModel();
 	    selectPairDeleteComboBox.addActionListener(this);
 	    deleteTerm = new JTextField();
 	    deleteTerm.setEditable(false);
@@ -100,11 +118,19 @@ public class EditSetPage extends Page {
 		Object obj = e.getSource();
 		if(obj == selectSetComboBox){
 			//Load set in from DB and populate the drop-downs
+			setName = selectSetComboBox.getSelectedItem().toString();
+			setToEdit = dc.selectSet(setName);
+			pairs = setToEdit.getPairs();
+			for(int i=0; i<pairs.size();i++){
+				String pair = pairs.get(i).toString();
+				editModel.addElement(pair.substring(pair.indexOf(':')+2, pair.length()));
+				deleteModel.addElement(pair.substring(pair.indexOf(':')+2, pair.length()));
+			}
 		}
 		else if(obj == addPairButton){
 			newTerm = addTerm.getText();
 			newDef = addDefinition.getText();
-			//Save Pair to DB
+			pairs.add(new Pair(newTerm, newDef, setName));
 			addTerm.setText("");
 			addDefinition.setText("");
 		}
@@ -115,7 +141,7 @@ public class EditSetPage extends Page {
 			editTerm.setText("");
 			editDefinition.setText("");
 			selectPairEditComboBox.removeItem(selectPairEditComboBox.getSelectedItem());
-			selectPairEditComboBox.addItem(newTerm + " : " + newDef);
+			selectPairEditComboBox.addItem(newTerm + " , " + newDef);
 		}
 		else if(obj == deletePairButton){
 			@SuppressWarnings("unused")
@@ -129,19 +155,31 @@ public class EditSetPage extends Page {
 			selectPairDeleteComboBox.removeItem(selectPairDeleteComboBox.getSelectedItem());
 		}
 		else if(obj == doneButton){
+			//Save pairs-- modify setToEdit and save to db
+			for(int i = 0; i < pairs.size();i++){
+				if(!setToEdit.contains(pairs.get(i))){
+					setToEdit.addPair(pairs.get(i));
+				}
+			}
 			ManageSetsPage manageSetsPage = new ManageSetsPage("ManageSetsPage");
 			createAndShowGUI(manageSetsPage);
 			this.dispose();
 		}
 		else if(obj == selectPairEditComboBox){
-			editTerm.setText((String)selectPairEditComboBox.getSelectedItem());
-			editDefinition.setText((String)selectPairEditComboBox.getSelectedItem());
+			String pairStr = (String)selectPairEditComboBox.getSelectedItem();
+			editTerm.setText(pairStr.substring(0, pairStr.indexOf(',')));
+			editDefinition.setText(pairStr.substring(pairStr.indexOf(',')+2, pairStr.length()));
 		}
 		else if(obj == selectPairDeleteComboBox){
-			deleteTerm.setText((String)selectPairDeleteComboBox.getSelectedItem());
-			deleteDefinition.setText((String)selectPairDeleteComboBox.getSelectedItem());
+			String pairStr = (String)selectPairDeleteComboBox.getSelectedItem();
+			deleteTerm.setText(pairStr.substring(0, pairStr.indexOf(',')));
+			deleteDefinition.setText(pairStr.substring(pairStr.indexOf(',')+2, pairStr.length()));
 		}
 		
 	}
+	 public static void main(String[] args){
+		 EditSetPage e = new EditSetPage("Studysaurus");
+		 createAndShowGUI(e);
+	 }
 
 }
