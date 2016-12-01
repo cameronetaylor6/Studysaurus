@@ -55,34 +55,34 @@ public void setName(String newName) {
 	   return termValue.iterator();
    }
    
-   public void addPair(Pair newPair) {
-      termValue.add(newPair);
+   public boolean addPair(Pair newPair) {
+	   if(!termValue.contains(newPair)){
+		   termValue.add(newPair);
+		   return true;
+	   }
+	   System.out.println("Failed to add. Pair already exists.");
+	   return false;
    }
-   public void deletePair(Pair oldPair) {
-      Iterator<Pair> it = termValue.iterator();
-      while(it.hasNext()) {
-         Pair pair = it.next();
-         if (pair.equals(oldPair)) {
-            it.remove();
-            return;
-         }
+   public boolean deletePair(Pair oldPair) {
+      boolean rem = termValue.remove(oldPair);
+      if(!rem){
+    	  System.out.println("Failed to remove. Pair does not exist.");
+    	  return false;
       }
-      System.out.println("failure");
-      //insert error code here
+      return true;
    }
    public boolean contains(Pair pair) {
-	    Iterator<Pair> it = this.termValue.iterator();
-	    while(it.hasNext()) {
-	       Pair curr = it.next();
-	       if (curr.equals(pair)) {
-	          return true;
-	       }
-	    } return false;
+	   return termValue.contains(pair);
 	}
-   public void editPair(Pair oldPair, Pair newPair) {
-      deletePair(oldPair);
-      addPair(newPair);
-      return;
+   public boolean editPair(Pair oldPair, Pair newPair) {
+      if(deletePair(oldPair)){
+    	  addPair(newPair);
+    	  return true;
+      }
+      else{
+    	  System.out.println("Failed to edit Pair.");
+      }
+      return false;
    }
    
    public ArrayList<String> getTerms(){
@@ -110,6 +110,22 @@ public void setName(String newName) {
 	   }
 	   ret += "End of set.\n";
 	   return ret;
+   }
+   
+   public static void main(String[] args){
+	   Set s1 = new Set("BasicTimesTable", false);
+       for(int i = 1; i < 3; i++){
+       	for(int j = 1; j < 3; j++){
+       		Pair p1 = new Pair((Integer.toString(i) + "x" + Integer.toString(j)), Integer.toString(i*j), s1.getName());
+       		s1.addPair(p1);
+       	}
+       }
+		 System.out.print(s1);
+		 s1.editPair(new Pair("1x1", "1", s1.getName()), new Pair("100x100", "1", s1.getName()));
+		 System.out.print(s1);
+		 s1.editPair(new Pair("1x1", "1", s1.getName()), new Pair("2x2", "1", s1.getName()));
+		 System.out.print(s1);
+		 return;
    }
 
 }

@@ -43,6 +43,20 @@ public class Pair{
     	ownerSet = owner;
     }
     
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Pair)) {
+            return false;
+        }
+        Pair p = (Pair) o;
+        return term.equals(p.getTerm())
+               && value.equals(p.getValue())
+               && ownerSet.equals(p.getOwnerSet());
+    }
+    
     public String toString(){
  	   String ret = "";
  	   ret += ownerSet + ": " + term + ", " + value;
