@@ -35,7 +35,7 @@ public class JsonImporter {
 				String termStr = (String) term;
 				Object value = termValues.get(termStr);
 				String valueStr = (String) value;
-				Pair pair = new Pair(termStr, valueStr, _set.getName());
+				Pair pair = new Pair(termStr, valueStr, setName);
 				_set.addPair(pair);
 			}
 		}
