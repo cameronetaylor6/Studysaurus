@@ -71,7 +71,7 @@ public class PlayGamePage extends Page {
 			this.dispose();
 		}
 		else if(obj == definitionField){
-			//state = new Pair(termField.getText(),definitionField.getText(),null);
+			state = new Pair(termField.getText(),definitionField.getText(),null);
 			//compare
 			notifyObservers();
 			//TODO: load in next term, clear value

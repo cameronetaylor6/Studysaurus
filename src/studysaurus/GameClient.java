@@ -10,16 +10,16 @@ public final class GameClient implements Observer{
     private static final GameClient instance = new GameClient();
 
     //instance variables
-    private Page currentPage;
-    private Set currentSet;
-    private int difficulty;
-    private int dinosaurCount;
-    private Pair currentPair;
-    private Pair guess;
+    private static Page currentPage;
+    private static Set currentSet;
+    private static int difficulty;
+    private static int dinosaurCount;
+    private static Pair currentPair;
+    private static Pair guess;
     private static Score score;
-    private ArrayList<Subject> subjects;
-    private ArrayList<Asteroid> asteroids;
-
+    private static Asteroid asteroid;
+    private static ArrayList<Subject> subjects;
+    
     public Pair getCurrentPair() {
 		return currentPair;
 	}
@@ -37,8 +37,8 @@ public final class GameClient implements Observer{
         currentPair = null;
         guess = null;
         score = null;
+        asteroid = null;
         subjects = null;
-        asteroids = null;
     }
 
     public static GameClient getInstance() {
@@ -82,6 +82,18 @@ public final class GameClient implements Observer{
     public Score getScore() {
         return score;
     }
+    public void setAsteroid(Asteroid ast) {
+    	asteroid = ast;
+    }
+    public Asteroid getAsteroid() {
+    	return asteroid;
+    }
+    public void setSubjects(ArrayList<Subject> _subjects) {
+    	subjects = _subjects;
+    }
+    public ArrayList<Subject> getSubjects() {
+    	return subjects;
+    }
 
     public void update(Subject sub) {
         if (sub instanceof Asteroid) {
@@ -97,7 +109,7 @@ public final class GameClient implements Observer{
         	guess = (Pair) sub.getUpdate(this);
         	if (checkAnswer(guess)) {
         		incrementScore();
-        		//TODO: update new pair
+        		//TODO: update new pair (use currentpage?)
         	}
         	else {
         		if (dinosaurCount > 0) {
@@ -114,19 +126,6 @@ public final class GameClient implements Observer{
         subjects.add(topic);
     }
 
-    //methods
-    //TODO: compelte
-    private static void displayHomePage() {
-
-    }
-    //TODO: complete
-    private static void displaySuccessPage() {
-
-    }
-    //TODO: complete
-    private static void displayFailurePage() {
-
-    }
     public Boolean checkAnswer(Pair guess) {
 		if (currentPair.getValue().toLowerCase() == guess.getValue().toLowerCase()) {
 			return true;
@@ -135,38 +134,25 @@ public final class GameClient implements Observer{
 			return false;
 		}
     }
-    //TODO: compelte
-    private static void createAsteroid(Pair termValue) {
-
-    }
     
+    private static void createAsteroid(Pair termValue) {
+    	asteroid = new Asteroid(termValue, difficulty);
+    }
 
     private static void incrementScore() {
         int cur = score.getScore();
         score.setScore(cur + 100);
     }
 
-    private static void createFrame() {
-    	//create window
-    	JFrame frame = new JFrame("Studysaurus");
-    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    	//add title label
-    	JLabel label = new JLabel("Studysaurus");
-        frame.getContentPane().add(label);
-
-        //show frame
-        frame.pack();
-        frame.setVisible(true);
+    private static void initGC() {
+    	Page.createAndShowGUI(currentPage);
     }
-
     public static void main(String[] args) {
         //schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createFrame();
-                displayHomePage();
+            	initGC();
             }
         });
     }

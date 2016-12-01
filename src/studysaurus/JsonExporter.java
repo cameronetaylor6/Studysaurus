@@ -19,9 +19,8 @@ public class JsonExporter {
 		for (Pair pair : _set.getPairs()) {
 			termValues.put(pair.getTerm(), pair.getValue());
 		}
-
-		termValues.put("name", _set.getName());
 		termValues.put(_set.getName(), termValues);
+		termValues.put("name", _set.getName());
 
 		try {
 			FileWriter file = new FileWriter("/home/user/Desktop/Studysaurus/Sets/" + _set.getName() + ".json");

@@ -31,9 +31,9 @@ public class JsonImporter {
 
 			_set.setName(setName);
 
-			for (Object term : jObj.keySet()) {
+			for (Object term : termValues.keySet()) {
 				String termStr = (String) term;
-				Object value = jObj.get(termStr);
+				Object value = termValues.get(termStr);
 				String valueStr = (String) value;
 				Pair pair = new Pair(termStr, valueStr, _set.getName());
 				_set.addPair(pair);
