@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,7 +18,7 @@ import javax.swing.JTextField;
 public class PlayGamePage extends Page {
 	GridLayout layout = new GridLayout(1,1);
 	JTextField termField, definitionField, scoreField;
-	JButton exitGameButton;
+	JButton startGameButton, exitGameButton, submitButton;
 	GameClient gc = GameClient.getInstance();
 
 	public PlayGamePage(String name) {
@@ -36,8 +37,6 @@ public class PlayGamePage extends Page {
 		JLabel termLabel = new JLabel("Term");
 		termLabel.setFont(new Font("Serif", Font.PLAIN, 20));
 		termField = new JTextField("Noodles");
-		//Pair currentPair = gc.getCurrentPair();
-		//termField = new JTextField(currentPair.getTerm());
 	    termField.setEditable(false);
 		JLabel definitionLabel = new JLabel("Definition");
 		definitionLabel.setFont(new Font("Serif", Font.PLAIN, 20));
@@ -49,7 +48,6 @@ public class PlayGamePage extends Page {
 		scoreField.setEditable(false);
 		exitGameButton = new JButton("Done");
 		exitGameButton.addActionListener(this);
-		
 		
 		gamePanel.add(scoreLabel);
 		gamePanel.add(scoreField);
@@ -70,11 +68,15 @@ public class PlayGamePage extends Page {
 			createAndShowGUI(homePage);
 			this.dispose();
 		}
-		else if(obj == definitionField){
-			state = new Pair(termField.getText(),definitionField.getText(),null);
-			//compare
-			notifyObservers();
-			//TODO: load in next term, clear value
+		if(obj == startGameButton){
+			Iterator<Pair> randomSet = gc.getCurrentSet().randomizeSet();
+			while (randomSet.hasNext()) {
+				Pair guess = randomSet.next();
+				termField = new JTextField(guess.getTerm());
+			}
+		}
+		else if(obj == submitButton){
+			
 		}
 	}
 

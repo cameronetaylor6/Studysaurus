@@ -5,6 +5,7 @@ import javax.swing.*;
 import studysaurus.Asteroid.AsteroidState;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public final class GameClient implements Observer{
     private static final GameClient instance = new GameClient();
@@ -15,7 +16,7 @@ public final class GameClient implements Observer{
     private static int difficulty;
     private static int dinosaurCount;
     private static Pair currentPair;
-    private static Pair guess;
+    private static String guess;
     private static Score score;
     private static Asteroid asteroid;
     private static ArrayList<Subject> subjects;
@@ -39,6 +40,7 @@ public final class GameClient implements Observer{
         score = null;
         asteroid = null;
         subjects = null;
+        randomizedSet = null;
     }
 
     public static GameClient getInstance() {
@@ -70,10 +72,10 @@ public final class GameClient implements Observer{
     public int getDinosaurCount() {
         return dinosaurCount;
     }
-    public void setGuess(Pair _guess) {
+    public void setGuess(String _guess) {
     	guess = _guess;
     }
-    public Pair getGuess() {
+    public String getGuess() {
     	return guess;
     }
     public void setScore(Score _score) {
@@ -102,11 +104,7 @@ public final class GameClient implements Observer{
                 //  destroy asteroid?
             }
         }
-        else if (sub instanceof GameOptionsPage) {
-            difficulty = (int) sub.getUpdate(this);
-        }
         else if (sub instanceof PlayGamePage) {
-        	guess = (Pair) sub.getUpdate(this);
         	if (checkAnswer(guess)) {
         		incrementScore();
         		//TODO: update new pair (use currentpage?)
