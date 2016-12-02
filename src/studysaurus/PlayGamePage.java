@@ -18,9 +18,10 @@ import javax.swing.JTextField;
 public class PlayGamePage extends Page {
 	GridLayout layout = new GridLayout(1,1);
 	JTextField termField, definitionField, scoreField;
-	JTextField guessField;
 	JButton startButton, exitGameButton, enterButton;
 	GameClient gc = GameClient.getInstance();
+	Iterator<Pair> randomSet;
+	Pair currentPair;
 
 	public PlayGamePage(String name) {
 		super(name);
@@ -71,8 +72,7 @@ public class PlayGamePage extends Page {
 		gamePanel.add(enterGuess);
 		gamePanel.add(exitGameButton);
 		
-		pane.add(panel, BorderLayout.CENTER);
-		
+		pane.add(panel, BorderLayout.CENTER);	
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -82,20 +82,48 @@ public class PlayGamePage extends Page {
 			createAndShowGUI(homePage);
 			this.dispose();
 		}
-		else if(obj == startButton){
-		    System.out.println(gc.getCurrentSet().toString());
-		    Iterator<Pair> randomSet = gc.getCurrentSet().randomizeSet();
-			while(randomSet.hasNext()){
-				Pair guess = randomSet.next();
-				termField.setText(guess.getTerm());
+		if(obj == startButton){
+			randomSet = gc.getCurrentSet().randomizeSet();
+			currentPair = randomSet.next();
+			termField.setText(currentPair.getTerm());
+			gc.createAndSetAsteroid();
+		}
+		if(obj == enterButton){
+			if(gc.getAsteroid().state.impacted == false) {
+				if (gc.checkAnswer(currentPair, definitionField.getText()) || gc.getAsteroid().state.diffused) {
+					gc.getAsteroid().state.diffused = true;
+					gc.incrementScore();
+					if(randomSet.hasNext()) {
+						currentPair = randomSet.next();
+						termField.setText(currentPair.getTerm());
+						gc.createAndSetAsteroid();
+					}
+					else {
+						// TODO: game over, you win?
+					}
+				}
+				else {
+					// TODO: alert user incorrect guess, keep guessing
+				}
+			}
+			else{
+				// TODO: alert user time expired
+				int lives = gc.getDinosaurCount();
+				if(lives > 1) {
+					gc.setDinosaurCount(lives - 1);
+					if(randomSet.hasNext()) {
+						currentPair = randomSet.next();
+						termField.setText(currentPair.getTerm());
+						gc.createAndSetAsteroid();
+					}
+					else {
+						// TODO: game over, you win?
+					}
+				}
+				else {
+					// TODO: you lose, wat do
+				}
 			}
 		}
-		else if(obj == enterButton){
-			state = new Pair(termField.getText(),definitionField.getText(),null);
-			//compare
-			notifyObservers();
-			//TODO: load in next term, clear value
-		}
 	}
-
 }
