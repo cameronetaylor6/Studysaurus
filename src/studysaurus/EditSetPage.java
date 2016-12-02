@@ -128,6 +128,8 @@ public class EditSetPage extends Page {
 		else if(obj == addPairButton){
 			Pair newPair = new Pair(addTerm.getText(), addDefinition.getText(), setName);
 			setToEdit.addPair(newPair);
+			editModel.addElement(newPair.getTerm() + " , " + newPair.getValue());
+			deleteModel.addElement(newPair.getTerm() + " , " + newPair.getValue());
 			addTerm.setText("");
 			addDefinition.setText("");
 		}
@@ -137,17 +139,21 @@ public class EditSetPage extends Page {
 			setToEdit.editPair(pairs.get(selectPairDeleteComboBox.getSelectedIndex()), new Pair(newTerm, newDef, setName));
 			editTerm.setText("");
 			editDefinition.setText("");
+			selectPairDeleteComboBox.removeItem(selectPairEditComboBox.getSelectedItem());
+			selectPairDeleteComboBox.addItem(newTerm + " , " + newDef);
 			selectPairEditComboBox.removeItem(selectPairEditComboBox.getSelectedItem());
 			selectPairEditComboBox.addItem(newTerm + " , " + newDef);
+			
 		}
 		else if(obj == deletePairButton){
 			String deletedTerm = deleteTerm.getText();
 			String deletedDef = deleteDefinition.getText();
-			System.out.println(pairs.get(selectPairDeleteComboBox.getSelectedIndex()));
 			setToEdit.deletePair(pairs.get(selectPairDeleteComboBox.getSelectedIndex()));
 			deleteTerm.setText("");
 			deleteDefinition.setText("");
+			selectPairEditComboBox.removeItem(selectPairDeleteComboBox.getSelectedItem());
 			selectPairDeleteComboBox.removeItem(selectPairDeleteComboBox.getSelectedItem());
+			
 		}
 		else if(obj == doneButton){
 			System.out.print(setToEdit.toString());

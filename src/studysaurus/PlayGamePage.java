@@ -84,7 +84,6 @@ public class PlayGamePage extends Page {
 		else if(obj == startButton){
 		    System.out.println(gc.getCurrentSet().toString());
 		    Iterator<Pair> randomSet = gc.getCurrentSet().randomizeSet();
-		    
 			while(randomSet.hasNext()){
 				Pair guess = randomSet.next();
 				termField.setText(guess.getTerm());
