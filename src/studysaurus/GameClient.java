@@ -5,8 +5,9 @@ import javax.swing.*;
 import studysaurus.Asteroid.AsteroidState;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public final class GameClient implements Observer{
+public final class GameClient {
     private static final GameClient instance = new GameClient();
 
     //instance variables
@@ -14,19 +15,9 @@ public final class GameClient implements Observer{
     private static Set currentSet;
     private static int difficulty;
     private static int dinosaurCount;
-    private static Pair currentPair;
-    private static Pair guess;
+    private static String guess;
     private static Score score;
     private static Asteroid asteroid;
-    private static ArrayList<Subject> subjects;
-    
-    public Pair getCurrentPair() {
-		return currentPair;
-	}
-
-	public void setCurrentPair(Pair currentPair) {
-		this.currentPair = currentPair;
-	}
 
 	private GameClient() {
         currentPage = new HomePage("Studysaurus");
@@ -34,11 +25,9 @@ public final class GameClient implements Observer{
         currentSet = null;
         difficulty = 0;
         dinosaurCount = 0;
-        currentPair = null;
         guess = null;
-        score = null;
+        score = new Score();
         asteroid = null;
-        subjects = null;
     }
 
     public static GameClient getInstance() {
@@ -70,10 +59,10 @@ public final class GameClient implements Observer{
     public int getDinosaurCount() {
         return dinosaurCount;
     }
-    public void setGuess(Pair _guess) {
+    public void setGuess(String _guess) {
     	guess = _guess;
     }
-    public Pair getGuess() {
+    public String getGuess() {
     	return guess;
     }
     public void setScore(Score _score) {
@@ -88,46 +77,9 @@ public final class GameClient implements Observer{
     public Asteroid getAsteroid() {
     	return asteroid;
     }
-    public void setSubjects(ArrayList<Subject> _subjects) {
-    	subjects = _subjects;
-    }
-    public ArrayList<Subject> getSubjects() {
-    	return subjects;
-    }
 
-    public void update(Subject sub) {
-        if (sub instanceof Asteroid) {
-            AsteroidState state = (AsteroidState) sub.getUpdate(this);
-            if(state.impacted == true && state.diffused == false) {
-                //  destroy asteroid?
-            }
-        }
-        else if (sub instanceof GameOptionsPage) {
-            difficulty = (int) sub.getUpdate(this);
-        }
-        else if (sub instanceof PlayGamePage) {
-        	guess = (Pair) sub.getUpdate(this);
-        	if (checkAnswer(guess)) {
-        		incrementScore();
-        		//TODO: update new pair (use currentpage?)
-        	}
-        	else {
-        		if (dinosaurCount > 0) {
-        			dinosaurCount--;
-        		}
-        		else {
-        			dinosaurCount = 0;
-        		}
-        	}
-        }
-    }
-
-    public void setSubject(Subject topic) {
-        subjects.add(topic);
-    }
-
-    public Boolean checkAnswer(Pair guess) {
-		if (currentPair.getValue().toLowerCase() == guess.getValue().toLowerCase()) {
+    public Boolean checkAnswer(Pair termValue, String guess) {
+		if (termValue.getValue().toLowerCase().equals(guess.toLowerCase())) {
 			return true;
 		}
 		else {
@@ -135,11 +87,11 @@ public final class GameClient implements Observer{
 		}
     }
     
-    private static void createAsteroid(Pair termValue) {
-    	asteroid = new Asteroid(termValue, difficulty);
+    public void createAndSetAsteroid() {
+    	asteroid = new Asteroid(difficulty);
     }
 
-    private static void incrementScore() {
+    public void incrementScore() {
         int cur = score.getScore();
         score.setScore(cur + 100);
     }

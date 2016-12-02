@@ -108,14 +108,10 @@ public class GameOptionsPage extends Page implements ActionListener {
 			gameClient.setCurrentSet(selectedSet);
 		}
 		else if (obj == easyLevel){
-			//set Level
-			state = 8;
-			notifyObservers();
+			gc.setDifficulty(8);
 		}
 		else if (obj == hardLevel){
-			//set Level
-			state = 4;
-			notifyObservers();
+			gc.setDifficulty(4);
 		}
 	}
 
