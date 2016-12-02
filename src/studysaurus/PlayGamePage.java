@@ -17,8 +17,9 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class PlayGamePage extends Page {
 	GridLayout layout = new GridLayout(1,1);
-	JTextField termField, guessField, definitionField, scoreField;
-	JButton enterButton, startButton, exitGameButton;
+	JTextField termField, definitionField, scoreField;
+	JTextField guessField;
+	JButton startButton, exitGameButton, enterButton;
 	GameClient gc = GameClient.getInstance();
 
 	public PlayGamePage(String name) {
