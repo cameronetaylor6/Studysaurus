@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 public class PlayGamePage extends Page {
 	GridLayout layout = new GridLayout(1,1);
 	JTextField termField, definitionField, scoreField;
-	JButton startGameButton, exitGameButton, submitButton;
+	JButton startButton, exitGameButton, enterButton;
 	GameClient gc = GameClient.getInstance();
 	Iterator<Pair> randomSet;
 	Pair currentPair;
@@ -33,17 +33,28 @@ public class PlayGamePage extends Page {
         Dimension buttonSize = b.getPreferredSize();
         panel.setPreferredSize(new Dimension((int)(buttonSize.getWidth() * 5.5),
                 (int)(buttonSize.getHeight() * 6.5) * 2));
-		JPanel gamePanel = new JPanel(new GridLayout(7,0));
+		JPanel gamePanel = new JPanel(new GridLayout(8,0));
+		JPanel enterGuess = new JPanel(new GridLayout(2,1));
 		panel.add(gamePanel);
 		
+		startButton = new JButton("Start");
+		startButton.addActionListener(this);
 		JLabel termLabel = new JLabel("Term");
 		termLabel.setFont(new Font("Serif", Font.PLAIN, 20));
-		termField = new JTextField("Noodles");
+		termField = new JTextField("");
+		//Pair currentPair = gc.getCurrentPair();
+		//termField = new JTextField(currentPair.getTerm());
 	    termField.setEditable(false);
 		JLabel definitionLabel = new JLabel("Definition");
 		definitionLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+		guessField = new JTextField();
 		definitionField = new JTextField();
-		definitionField.addActionListener(this);
+		definitionField.setEditable(false);
+		enterButton = new JButton("Enter");
+		enterButton.addActionListener(this);
+		enterGuess.add(guessField);
+		enterGuess.add(definitionField);
+		enterGuess.add(enterButton);
 		JLabel scoreLabel  = new JLabel("Score");
 		scoreLabel.setFont(new Font("Serif", Font.PLAIN, 20));
 		scoreField = new JTextField();
@@ -51,15 +62,17 @@ public class PlayGamePage extends Page {
 		exitGameButton = new JButton("Done");
 		exitGameButton.addActionListener(this);
 		
+		
+		gamePanel.add(startButton);
 		gamePanel.add(scoreLabel);
 		gamePanel.add(scoreField);
 		gamePanel.add(termLabel);
 		gamePanel.add(termField);
 		gamePanel.add(definitionLabel);
-		gamePanel.add(definitionField);
+		gamePanel.add(enterGuess);
 		gamePanel.add(exitGameButton);
 		
-		pane.add(panel, BorderLayout.CENTER);
+		pane.add(panel, BorderLayout.CENTER);	
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -69,13 +82,13 @@ public class PlayGamePage extends Page {
 			createAndShowGUI(homePage);
 			this.dispose();
 		}
-		if(obj == startGameButton){
+		if(obj == startButton){
 			randomSet = gc.getCurrentSet().randomizeSet();
 			currentPair = randomSet.next();
 			termField.setText(currentPair.getTerm());
 			gc.createAndSetAsteroid();
 		}
-		if(obj == submitButton){
+		if(obj == enterButton){
 			if(gc.getAsteroid().state.impacted == false) {
 				if (gc.checkAnswer(currentPair, definitionField.getText()) || gc.getAsteroid().state.diffused) {
 					gc.getAsteroid().state.diffused = true;
