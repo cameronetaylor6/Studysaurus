@@ -22,7 +22,9 @@ public class ImportSetPage extends Page {
 	GridLayout layout = new GridLayout(4,0);
 	JButton browseButton, importButton, doneButton, cancelButton;
 	JTextField setNameTextField, filenameTextfield;
+	Set newSet;
 	File selectedFile;
+	JsonImporter json;
 
 	public ImportSetPage(String name) {
 		super(name);
@@ -85,9 +87,12 @@ public class ImportSetPage extends Page {
 			}
 		}
 		else if(obj == importButton){
-			//Import file (File object called selectedFile)
+			json = new JsonImporter(selectedFile.getPath());
+			json.importAndSave();
 		}
 		else if(obj == doneButton || obj == cancelButton){
+			//newSet = new Set(setNameTextField.getText(),true);
+			//add pairs from imported file
 			ManageSetsPage manageSetsPage = new ManageSetsPage("Manage Sets");
 			createAndShowGUI(manageSetsPage);
 			this.dispose();
