@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 public class PlayGamePage extends Page {
 	GridLayout layout = new GridLayout(1,1);
 	JTextField termField, definitionField, scoreField;
-	JButton exitGameButton;
+	JButton enterButton, startButton, exitGameButton;
 	GameClient gc = GameClient.getInstance();
 
 	public PlayGamePage(String name) {
@@ -31,6 +31,7 @@ public class PlayGamePage extends Page {
         panel.setPreferredSize(new Dimension((int)(buttonSize.getWidth() * 5.5),
                 (int)(buttonSize.getHeight() * 6.5) * 2));
 		JPanel gamePanel = new JPanel(new GridLayout(7,0));
+		JPanel enterGuess = new JPanel(new GridLayout(0,2));
 		panel.add(gamePanel);
 		
 		JLabel termLabel = new JLabel("Term");
@@ -43,6 +44,9 @@ public class PlayGamePage extends Page {
 		definitionLabel.setFont(new Font("Serif", Font.PLAIN, 20));
 		definitionField = new JTextField();
 		definitionField.addActionListener(this);
+		enterButton = new JButton("Enter");
+		enterGuess.add(definitionField);
+		enterGuess.add(enterButton);
 		JLabel scoreLabel  = new JLabel("Score");
 		scoreLabel.setFont(new Font("Serif", Font.PLAIN, 20));
 		scoreField = new JTextField();
@@ -56,7 +60,7 @@ public class PlayGamePage extends Page {
 		gamePanel.add(termLabel);
 		gamePanel.add(termField);
 		gamePanel.add(definitionLabel);
-		gamePanel.add(definitionField);
+		gamePanel.add(enterGuess);
 		gamePanel.add(exitGameButton);
 		
 		pane.add(panel, BorderLayout.CENTER);
