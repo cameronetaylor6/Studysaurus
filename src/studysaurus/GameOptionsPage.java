@@ -25,6 +25,7 @@ public class GameOptionsPage extends Page implements ActionListener {
 	  JButton playButton;
 	  JComboBox<String> defaultSets, customSets;
 	  JRadioButton easyLevel, hardLevel;
+	  Set selectedSet;
 	     
 	    public GameOptionsPage(String name) {
 	        super(name);
@@ -58,12 +59,14 @@ public class GameOptionsPage extends Page implements ActionListener {
 	        defaultSetPanel.add(new JLabel("Default Sets"));
 	        ArrayList<String> defaultSetList = dc.getSets(false);
 	        defaultSets = new JComboBox(defaultSetList.toArray());
+	        defaultSets.addActionListener(this);
 	        defaultSetPanel.add(defaultSets);
 	        
 	        //Add Custom Set stuff
 	        customSetPanel.add(new JLabel("Custom Sets"));
 	        ArrayList<String> customSetList = dc.getSets(true);
 	        customSets = new JComboBox(customSetList.toArray());
+	        customSets.addActionListener(this);
 	        customSetPanel.add(customSets);
 	        
 	        //Add Level stuff
@@ -89,13 +92,14 @@ public class GameOptionsPage extends Page implements ActionListener {
 	public void actionPerformed(ActionEvent e){
 		Object obj = e.getSource();
 		if(obj == playButton){
+			System.out.print(selectedSet.toString());
 			PlayGamePage playGamePage = new PlayGamePage("Studysaurus");
 			createAndShowGUI(playGamePage);
 			this.dispose();
 		}
 		else if (obj == defaultSets){
 			String selectedSetName = (String)defaultSets.getSelectedItem();
-			Set selectedSet = dc.selectSet(selectedSetName);
+			selectedSet = dc.selectSet(selectedSetName);
 			gameClient.setCurrentSet(selectedSet);
 		}
 		else if (obj == customSets){
