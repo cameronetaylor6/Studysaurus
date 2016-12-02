@@ -24,7 +24,6 @@ public class EditSetPage extends Page {
 	JButton addPairButton, deletePairButton, editPairButton, doneButton;
 	JTextField editTerm, editDefinition, addTerm, addDefinition, deleteTerm, deleteDefinition;
 	JComboBox<String> selectSetComboBox, selectPairEditComboBox, selectPairDeleteComboBox;
-	DatabaseConnector dc;
 	
 	String setName;
 	Set setToEdit= new Set();
@@ -35,7 +34,6 @@ public class EditSetPage extends Page {
 
 	public EditSetPage(String name) {
 		super(name);
-		dc = new DatabaseConnector();
 	}
 
 	void drawPage(Container pane) {
@@ -128,39 +126,32 @@ public class EditSetPage extends Page {
 			}
 		}
 		else if(obj == addPairButton){
-			newTerm = addTerm.getText();
-			newDef = addDefinition.getText();
-			pairs.add(new Pair(newTerm, newDef, setName));
+			Pair newPair = new Pair(addTerm.getText(), addDefinition.getText(), setName);
+			setToEdit.addPair(newPair);
 			addTerm.setText("");
 			addDefinition.setText("");
 		}
 		else if(obj == editPairButton){
 			newTerm = editTerm.getText();
 			newDef = editDefinition.getText();
-			//Save new Pair to DB
+			setToEdit.editPair(pairs.get(selectPairDeleteComboBox.getSelectedIndex()), new Pair(newTerm, newDef, setName));
 			editTerm.setText("");
 			editDefinition.setText("");
 			selectPairEditComboBox.removeItem(selectPairEditComboBox.getSelectedItem());
 			selectPairEditComboBox.addItem(newTerm + " , " + newDef);
 		}
 		else if(obj == deletePairButton){
-			@SuppressWarnings("unused")
 			String deletedTerm = deleteTerm.getText();
-			@SuppressWarnings("unused")
 			String deletedDef = deleteDefinition.getText();
-			//Delete Pair from DB
-			//Remove from GUI
+			System.out.println(pairs.get(selectPairDeleteComboBox.getSelectedIndex()));
+			setToEdit.deletePair(pairs.get(selectPairDeleteComboBox.getSelectedIndex()));
 			deleteTerm.setText("");
 			deleteDefinition.setText("");
 			selectPairDeleteComboBox.removeItem(selectPairDeleteComboBox.getSelectedItem());
 		}
 		else if(obj == doneButton){
-			//Save pairs-- modify setToEdit and save to db
-			for(int i = 0; i < pairs.size();i++){
-				if(!setToEdit.contains(pairs.get(i))){
-					setToEdit.addPair(pairs.get(i));
-				}
-			}
+			System.out.print(setToEdit.toString());
+			dc.saveSet(setToEdit);
 			ManageSetsPage manageSetsPage = new ManageSetsPage("ManageSetsPage");
 			createAndShowGUI(manageSetsPage);
 			this.dispose();
@@ -177,9 +168,5 @@ public class EditSetPage extends Page {
 		}
 		
 	}
-	 public static void main(String[] args){
-		 EditSetPage e = new EditSetPage("Studysaurus");
-		 createAndShowGUI(e);
-	 }
 
 }

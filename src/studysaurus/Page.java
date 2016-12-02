@@ -16,6 +16,8 @@ public abstract class Page extends JFrame implements ActionListener, Subject {
     private GridLayout layout;
     private ArrayList<Observer> observers; 
     public Object state;
+    protected GameClient gameClient = GameClient.getInstance();
+    protected DatabaseConnector dc = DatabaseConnector.getInstance();
     
     public Page(String name) {
 		super(name);
