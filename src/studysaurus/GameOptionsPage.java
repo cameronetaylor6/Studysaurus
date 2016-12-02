@@ -25,8 +25,6 @@ public class GameOptionsPage extends Page implements ActionListener {
 	  JButton playButton;
 	  JComboBox<String> defaultSets, customSets;
 	  JRadioButton easyLevel, hardLevel;
-	  DatabaseConnector dc = new DatabaseConnector();
-	  GameClient gc = GameClient.getInstance();
 	     
 	    public GameOptionsPage(String name) {
 	        super(name);
@@ -98,12 +96,12 @@ public class GameOptionsPage extends Page implements ActionListener {
 		else if (obj == defaultSets){
 			String selectedSetName = (String)defaultSets.getSelectedItem();
 			Set selectedSet = dc.selectSet(selectedSetName);
-			gc.setCurrentSet(selectedSet);
+			gameClient.setCurrentSet(selectedSet);
 		}
 		else if (obj == customSets){
 			String selectedSetName = (String)customSets.getSelectedItem();
 			Set selectedSet = dc.selectSet(selectedSetName);
-			gc.setCurrentSet(selectedSet);
+			gameClient.setCurrentSet(selectedSet);
 		}
 		else if (obj == easyLevel){
 			gc.setDifficulty(8);

@@ -8,7 +8,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 @SuppressWarnings("deprecation")
-public class DatabaseConnector {
+public final class DatabaseConnector {
+	private static final DatabaseConnector instance = new DatabaseConnector();
+	private DatabaseConnector(){
+		
+	}
+	public static DatabaseConnector getInstance(){
+		return instance;
+	}
+	
 	public ArrayList<String> getSets(boolean custom){
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
