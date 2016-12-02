@@ -47,12 +47,12 @@ public class PlayGamePage extends Page {
 	    termField.setEditable(false);
 		JLabel definitionLabel = new JLabel("Definition");
 		definitionLabel.setFont(new Font("Serif", Font.PLAIN, 20));
-		guessField = new JTextField();
+		definitionField = new JTextField();
 		definitionField = new JTextField();
 		definitionField.setEditable(false);
 		enterButton = new JButton("Enter");
 		enterButton.addActionListener(this);
-		enterGuess.add(guessField);
+		enterGuess.add(definitionField);
 		enterGuess.add(definitionField);
 		enterGuess.add(enterButton);
 		JLabel scoreLabel  = new JLabel("Score");
