@@ -114,12 +114,5 @@ public class DatabaseConnector {
 	public void checkForDatabase(){
 		//implement query to check if database exists, if not, create it
 	}
-	 public static void main(String[] args){
-		 DatabaseConnector dc = new DatabaseConnector();
-		 ArrayList<String> ls = dc.getSets(false);
-		 System.out.println(ls);
-		 //Set ss = dc.selectSet("BasicTimesTable");
-		 //System.out.print(ss);
-	 }
 
 }
