@@ -57,6 +57,9 @@ public final class DatabaseConnector {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.saveOrUpdate(aSet);
+        for(Pair pair : aSet.getPairs()){
+        	session.saveOrUpdate(pair);
+        }
         session.getTransaction().commit();
         session.close();
 	}
@@ -110,7 +113,7 @@ public final class DatabaseConnector {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         //maybe throw duplicate checking in?
-        session.save(aScore);
+        session.saveOrUpdate(aScore);
         session.getTransaction().commit();
         session.close();
 	}
