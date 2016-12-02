@@ -20,6 +20,8 @@ public class PlayGamePage extends Page {
 	JTextField termField, definitionField, scoreField;
 	JButton startGameButton, exitGameButton, submitButton;
 	GameClient gc = GameClient.getInstance();
+	Iterator<Pair> randomSet;
+	Pair currentPair;
 
 	public PlayGamePage(String name) {
 		super(name);
@@ -58,7 +60,6 @@ public class PlayGamePage extends Page {
 		gamePanel.add(exitGameButton);
 		
 		pane.add(panel, BorderLayout.CENTER);
-		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -69,15 +70,47 @@ public class PlayGamePage extends Page {
 			this.dispose();
 		}
 		if(obj == startGameButton){
-			Iterator<Pair> randomSet = gc.getCurrentSet().randomizeSet();
-			while (randomSet.hasNext()) {
-				Pair guess = randomSet.next();
-				termField = new JTextField(guess.getTerm());
+			randomSet = gc.getCurrentSet().randomizeSet();
+			currentPair = randomSet.next();
+			termField.setText(currentPair.getTerm());
+			gc.createAndSetAsteroid();
+		}
+		if(obj == submitButton){
+			if(gc.getAsteroid().state.impacted == false) {
+				if (gc.checkAnswer(currentPair, definitionField.getText()) || gc.getAsteroid().state.diffused) {
+					gc.getAsteroid().state.diffused = true;
+					gc.incrementScore();
+					if(randomSet.hasNext()) {
+						currentPair = randomSet.next();
+						termField.setText(currentPair.getTerm());
+						gc.createAndSetAsteroid();
+					}
+					else {
+						// TODO: game over, you win?
+					}
+				}
+				else {
+					// TODO: alert user incorrect guess, keep guessing
+				}
+			}
+			else{
+				// TODO: alert user time expired
+				int lives = gc.getDinosaurCount();
+				if(lives > 1) {
+					gc.setDinosaurCount(lives - 1);
+					if(randomSet.hasNext()) {
+						currentPair = randomSet.next();
+						termField.setText(currentPair.getTerm());
+						gc.createAndSetAsteroid();
+					}
+					else {
+						// TODO: game over, you win?
+					}
+				}
+				else {
+					// TODO: you lose, wat do
+				}
 			}
 		}
-		else if(obj == submitButton){
-			
-		}
 	}
-
 }

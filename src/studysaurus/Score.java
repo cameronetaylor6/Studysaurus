@@ -14,8 +14,10 @@ public class Score {
 	private String _userName;
 	private String _setName;
 	private int _score;
+	
+	public Score(){_score = 0;}
 
-	Score(String userName, String setName, int score) {
+	public Score(String userName, String setName, int score) {
 		_userName = userName;
 		_setName = setName;
 		_score = score;

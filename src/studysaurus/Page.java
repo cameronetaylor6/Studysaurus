@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 
-public abstract class Page extends JFrame implements ActionListener, Subject {
+public abstract class Page extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -37,30 +37,6 @@ public abstract class Page extends JFrame implements ActionListener, Subject {
         //Display the window.
         page.pack();
         page.setVisible(true);
-    }
-    
-    //@Override
-    public void register(Observer obj) {
-        if(obj == null) throw new NullPointerException("null observer - page");
-    
-        if(!observers.contains(obj)) observers.add(obj);
-    }
-
-    //@Override
-    public void unregister(Observer obj) {
-        observers.remove(obj);
-    }
-
-    //@Override
-    public void notifyObservers() {     
-        for (Observer obj : observers) {
-            obj.update(this);
-        }
-    }
-
-    //@Override
-    public Object getUpdate(Observer obj) {
-        return state;
     }
 
     public static void main(String[] args) {
