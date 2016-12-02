@@ -15,7 +15,8 @@ public class Score {
 	private String _setName;
 	private int _score;
 
-	Score(String userName, String setName, int score) {
+	public Score() {_score = 0;}
+	public Score(String userName, String setName, int score) {
 		_userName = userName;
 		_setName = setName;
 		_score = score;
@@ -38,6 +39,12 @@ public class Score {
 	}
 	public void setScore(int score) {
 		_score = score;
+	}
+	
+	public String toString(){
+		String ret = "";
+	 	ret += _userName + ", " + _setName + ": " + Integer.toString(_score);
+	 	return ret;
 	}
 
 	public static void main(String[] args) {

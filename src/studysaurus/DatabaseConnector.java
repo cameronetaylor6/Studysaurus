@@ -37,9 +37,10 @@ public final class DatabaseConnector {
 		if(!selectedSetList.get(0).getName().equals(setName)){
 			session.close();
 			sessionFactory.close();
-			//idk if returning null here is appropriate
+			//TODO: is throwing Null here acceptable?
 			return null;
 		}
+		//TODO: look into session.load
 		Set selectedSet = new Set(setName, selectedSetList.get(0).getCustom());
 		hql = "Select P FROM Pair P WHERE P.ownerSet = '" + setName + "'";
 		query = session.createQuery(hql);
@@ -55,8 +56,7 @@ public final class DatabaseConnector {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        //maybe throw duplicte checking in?
-        session.save(aSet);
+        session.saveOrUpdate(aSet);
         session.getTransaction().commit();
         session.close();
 	}
@@ -113,6 +113,29 @@ public final class DatabaseConnector {
         session.close();
         sessionFactory.close();
 	}
+	
+	public ArrayList<Score> getScores(){
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+		String hql = "SELECT S FROM Score S ORDER BY _score DESC";
+		//this normally returns List, could be issues casting to ArrayList
+		Query query = session.createQuery(hql);
+		query.setMaxResults(10);
+		ArrayList<Score> results = (ArrayList<Score>) query.list();
+		session.close();
+        sessionFactory.close();
+        return results;
+	}
+	public void saveScore(Score aScore){
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        //maybe throw duplicate checking in?
+        session.save(aScore);
+        session.getTransaction().commit();
+        session.close();
+	}
+	
 	public void checkForDefaults(){
 		ArrayList<String> setList = getSets(false);
 		if(setList.isEmpty()){
@@ -121,6 +144,10 @@ public final class DatabaseConnector {
 	}
 	public void checkForDatabase(){
 		//implement query to check if database exists, if not, create it
+		//I don't think we can implement this
+	}
+	public static void main(String args[]){
+		
 	}
 
 }
