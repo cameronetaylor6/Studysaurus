@@ -1,6 +1,7 @@
 package studysaurus;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -21,7 +22,6 @@ public final class DatabaseConnector {
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
 		String hql = "SELECT S.name FROM Set S WHERE S.custom = " + custom + "";
-		//this normally returns List, could be issues casting to ArrayList
 		Query query = session.createQuery(hql);
 		ArrayList<String> results = (ArrayList<String>) query.list();
 		session.close();
@@ -84,34 +84,13 @@ public final class DatabaseConnector {
         s2.addPair(n2);
         
         sets.add(s2);
-        
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
          
         for (Score score : scoreList){
-            session.save(score);
-            System.out.println(score);
+            saveScore(score);
         }
-         
-        session.getTransaction().commit();
-        session.close();
-        
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-         
         for (Set set : sets){
-            session.save(set);
-            System.out.println(set);
-            for (Pair pair : set.getPairs()){
-	            session.save(pair);
-	            System.out.println(pair);
-	        }
+            saveSet(set);
         }
-         
-        session.getTransaction().commit();
-        session.close();
-        sessionFactory.close();
 	}
 	
 	public ArrayList<Score> getScores(){
@@ -143,8 +122,7 @@ public final class DatabaseConnector {
 		}
 	}
 	public void checkForDatabase(){
-		//implement query to check if database exists, if not, create it
-		//I don't think we can implement this
+		//TODO: implement query to check if database exists, if not, create it: don't think this will work
 	}
 	public static void main(String args[]){
 		
