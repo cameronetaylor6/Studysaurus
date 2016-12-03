@@ -12,11 +12,10 @@ public class JsonImporter {
 
 	private String _filePath;
 	private Set _set;
-	//private DatabaseConnector dbConnection;
+	DatabaseConnector dc = DatabaseConnector.getInstance();
 
 	JsonImporter(String filePath) {
 		_filePath = filePath;
-		//dbConnection = new DatabaseConnector();
 		_set = new Set();
 	}
 
@@ -54,18 +53,12 @@ public class JsonImporter {
 		return true;
 	}
 
-	//TODO: insert set into DB
-	private boolean saveToDB() {
-		return true;
-
-	}
-
 	public boolean importAndSave() {
-		boolean success = ImportJson();
-		if (success) {
-			success = saveToDB();
+		if (ImportJson()) {
+			dc.saveSet(_set);
+			return true;
 		}
-		return success;
+		return false;
 	}
 
 	public static void main(String[] args) {

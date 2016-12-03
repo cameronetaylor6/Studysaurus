@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -18,7 +19,6 @@ public class ViewScorePage extends Page {
 	 */
 	private static final long serialVersionUID = 1L;
 	GridLayout layout = new GridLayout(4,0);
-	JList<String> scoreList;
     JButton doneButton;
     
 	    public ViewScorePage(String name) {
@@ -38,10 +38,14 @@ public class ViewScorePage extends Page {
 	                (int)(buttonSize.getHeight() * 6.5) * 2));
 	         
 	        //Add buttons to experiment with Grid Layout
-	        String[] scores = {"100", "99", "98", "100"};
-	        scoreList = new JList<String>(scores);
+	        ArrayList<Score> scores = dc.getScores();
+	        ArrayList<String> scoreStrings = null;
+	        for(Score sc: scores){
+	        	scoreStrings.add(sc.toString());
+	        }
 	        doneButton = new JButton("Done");
 	        doneButton.addActionListener(this);
+	        JList<String> scoreList = new JList(scoreStrings.toArray());
 	        panel.add(scoreList);
 	        panel.add(doneButton);
 	       

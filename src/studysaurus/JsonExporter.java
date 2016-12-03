@@ -13,7 +13,7 @@ public class JsonExporter {
 		_set = set;
 	}
 
-	public int export() {
+	public boolean export() {
 		JSONObject termValues = new JSONObject();
 
 		for (Pair pair : _set.getPairs()) {
@@ -30,9 +30,9 @@ public class JsonExporter {
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
-			return -1;
+			return false;
 		}
-		return 0;
+		return true;
 	}
 
 	public static void main(String[] args) {

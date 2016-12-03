@@ -72,7 +72,6 @@ public class ImportSetPage extends Page {
 		finishedPanel.add(cancelButton);
 		
 		pane.add(panel, BorderLayout.CENTER);
-		
 	}
 
 	@Override
@@ -87,12 +86,11 @@ public class ImportSetPage extends Page {
 			}
 		}
 		else if(obj == importButton){
-			json = new JsonImporter(selectedFile.getPath());
-			json.importAndSave();
+			JsonImporter json = new JsonImporter(selectedFile.getPath());
+			boolean ok = json.importAndSave();
+			// TODO: handle failure?
 		}
 		else if(obj == doneButton || obj == cancelButton){
-			//newSet = new Set(setNameTextField.getText(),true);
-			//add pairs from imported file
 			ManageSetsPage manageSetsPage = new ManageSetsPage("Manage Sets");
 			createAndShowGUI(manageSetsPage);
 			this.dispose();

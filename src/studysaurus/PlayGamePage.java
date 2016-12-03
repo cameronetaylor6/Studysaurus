@@ -19,7 +19,6 @@ public class PlayGamePage extends Page {
 	GridLayout layout = new GridLayout(1,1);
 	JTextField termField, definitionField, scoreField;
 	JButton startButton, exitGameButton, enterButton;
-	GameClient gc = GameClient.getInstance();
 	Iterator<Pair> randomSet;
 	Pair currentPair;
 
@@ -42,7 +41,7 @@ public class PlayGamePage extends Page {
 		JLabel termLabel = new JLabel("Term");
 		termLabel.setFont(new Font("Serif", Font.PLAIN, 20));
 		termField = new JTextField("");
-		//Pair currentPair = gc.getCurrentPair();
+		//Pair currentPair = gameClient.getCurrentPair();
 		//termField = new JTextField(currentPair.getTerm());
 	    termField.setEditable(false);
 		JLabel definitionLabel = new JLabel("Definition");
@@ -83,20 +82,20 @@ public class PlayGamePage extends Page {
 			this.dispose();
 		}
 		if(obj == startButton){
-			randomSet = gc.getCurrentSet().randomizeSet();
+			randomSet = gameClient.getCurrentSet().randomizeSet();
 			currentPair = randomSet.next();
 			termField.setText(currentPair.getTerm());
-			gc.createAndSetAsteroid();
+			gameClient.createAndSetAsteroid();
 		}
 		if(obj == enterButton){
-			if(gc.getAsteroid().state.impacted == false) {
-				if (gc.checkAnswer(currentPair, definitionField.getText()) || gc.getAsteroid().state.diffused) {
-					gc.getAsteroid().state.diffused = true;
-					gc.incrementScore();
+			if(gameClient.getAsteroid().state.impacted == false) {
+				if (gameClient.checkAnswer(currentPair, definitionField.getText()) || gameClient.getAsteroid().state.diffused) {
+					gameClient.getAsteroid().state.diffused = true;
+					gameClient.incrementScore();
 					if(randomSet.hasNext()) {
 						currentPair = randomSet.next();
 						termField.setText(currentPair.getTerm());
-						gc.createAndSetAsteroid();
+						gameClient.createAndSetAsteroid();
 					}
 					else {
 						// TODO: game over, you win?
@@ -108,13 +107,13 @@ public class PlayGamePage extends Page {
 			}
 			else{
 				// TODO: alert user time expired
-				int lives = gc.getDinosaurCount();
+				int lives = gameClient.getDinosaurCount();
 				if(lives > 1) {
-					gc.setDinosaurCount(lives - 1);
+					gameClient.setDinosaurCount(lives - 1);
 					if(randomSet.hasNext()) {
 						currentPair = randomSet.next();
 						termField.setText(currentPair.getTerm());
-						gc.createAndSetAsteroid();
+						gameClient.createAndSetAsteroid();
 					}
 					else {
 						// TODO: game over, you win?
