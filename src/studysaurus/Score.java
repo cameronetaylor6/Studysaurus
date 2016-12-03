@@ -43,7 +43,8 @@ public class Score {
 	
 	public String toString(){
 		String ret = "";
-	 	ret += _userName + ", " + _setName + ": " + Integer.toString(_score);
+	 	//ret += _userName + ", " + _setName + ": " + Integer.toString(_score);
+		ret += Integer.toString(_score);
 	 	return ret;
 	}
 

@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class PlayGamePage extends Page {
 	GridLayout layout = new GridLayout(1,1);
-	JTextField termField, definitionField, scoreField;
+	JTextField termField, feedbackField, scoreField, guessField;
 	JButton startButton, exitGameButton, enterButton;
 	Iterator<Pair> randomSet;
 	Pair currentPair;
@@ -46,13 +46,14 @@ public class PlayGamePage extends Page {
 	    termField.setEditable(false);
 		JLabel definitionLabel = new JLabel("Definition");
 		definitionLabel.setFont(new Font("Serif", Font.PLAIN, 20));
-		definitionField = new JTextField();
-		definitionField = new JTextField();
-		definitionField.setEditable(false);
+		guessField = new JTextField();
+		feedbackField = new JTextField();
+		feedbackField = new JTextField();
+		feedbackField.setEditable(false);
 		enterButton = new JButton("Enter");
 		enterButton.addActionListener(this);
-		enterGuess.add(definitionField);
-		enterGuess.add(definitionField);
+		enterGuess.add(guessField);
+		enterGuess.add(feedbackField);
 		enterGuess.add(enterButton);
 		JLabel scoreLabel  = new JLabel("Score");
 		scoreLabel.setFont(new Font("Serif", Font.PLAIN, 20));
@@ -88,12 +89,17 @@ public class PlayGamePage extends Page {
 			gameClient.createAndSetAsteroid();
 		}
 		if(obj == enterButton){
+			System.out.println(gameClient.getAsteroid().state.impacted);
 			if(gameClient.getAsteroid().state.impacted == false) {
-				if (gameClient.checkAnswer(currentPair, definitionField.getText()) || gameClient.getAsteroid().state.diffused) {
+				if (gameClient.checkAnswer(currentPair, guessField.getText()) || gameClient.getAsteroid().state.diffused) {
 					gameClient.getAsteroid().state.diffused = true;
 					gameClient.incrementScore();
+					guessField.setText("");
+					feedbackField.setText("Correct");
+					scoreField.setText(gameClient.getScore().toString());
 					if(randomSet.hasNext()) {
 						currentPair = randomSet.next();
+						termField.setText("");
 						termField.setText(currentPair.getTerm());
 						gameClient.createAndSetAsteroid();
 					}
@@ -102,9 +108,11 @@ public class PlayGamePage extends Page {
 					}
 				}
 				else {
+					feedbackField.setText("Incorrect, try again");
 					// TODO: alert user incorrect guess, keep guessing
 				}
 			}
+		}
 			else{
 				// TODO: alert user time expired
 				int lives = gameClient.getDinosaurCount();
@@ -125,4 +133,4 @@ public class PlayGamePage extends Page {
 			}
 		}
 	}
-}
+
