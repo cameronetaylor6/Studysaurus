@@ -58,24 +58,19 @@ public class ManageSetsPage extends Page{
 		public void actionPerformed(ActionEvent e) {
 			Object obj = e.getSource();
 			if(obj == createSetButton){
-				CreateSetPage createSetPage = new CreateSetPage("CreateSetPage");
-				createAndShowGUI(createSetPage);
+				gameClient.setCurrentPage(new CreateSetPage("Studysaurus"));
 			}
 			else if(obj == editSetButton){
-				EditSetPage editSetPage = new EditSetPage("EditSetPage");
-				createAndShowGUI(editSetPage);
+				gameClient.setCurrentPage(new EditSetPage("Studysaurus"));
 			}
 			else if(obj == importSetButton){
-				ImportSetPage importSetPage = new ImportSetPage("ImportSetPage");
-				createAndShowGUI(importSetPage);
+				gameClient.setCurrentPage(new ImportSetPage("ImportSetPage"));
 			}
 			else if(obj == exportSetButton){
-				ExportSetPage exportSetPage = new ExportSetPage("ExportSetPage");
-				createAndShowGUI(exportSetPage);
+				gameClient.setCurrentPage(new ExportSetPage("ExportSetPage"));
 			}
 			else if(obj == backButton){
-				HomePage homePage = new HomePage("HomePage");
-				createAndShowGUI(homePage);
+				gameClient.setCurrentPage(new HomePage("Studysaurus"));
 			}
 			this.dispose();
 			

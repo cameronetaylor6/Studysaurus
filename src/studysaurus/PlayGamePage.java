@@ -78,8 +78,7 @@ public class PlayGamePage extends Page {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == exitGameButton){
-			HomePage homePage = new HomePage("HomePage");
-			createAndShowGUI(homePage);
+			gameClient.setCurrentPage(new HomePage("StudySaurus"));
 			this.dispose();
 		}
 		if(obj == startButton){

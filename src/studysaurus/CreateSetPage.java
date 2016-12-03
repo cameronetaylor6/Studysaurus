@@ -95,8 +95,7 @@ public class CreateSetPage extends Page  {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == cancelButton){
-			ManageSetsPage manageSetsPage = new ManageSetsPage("ManageSetsPage");
-			createAndShowGUI(manageSetsPage);
+			gameClient.setCurrentPage(new ManageSetsPage("Studysaurus"));
 			this.dispose();
 		}
 		else if(obj == doneButton){
@@ -106,9 +105,8 @@ public class CreateSetPage extends Page  {
 				newSet.addPair(pairs.get(i));
 			}
 			System.out.print(newSet.toString());
-			//save newSet to the database
-			HomePage homePage = new HomePage("HomePage");
-			createAndShowGUI(homePage);
+			dc.saveSet(newSet);
+			gameClient.setCurrentPage(new HomePage("Studysauus"));
 			this.dispose();
 		}
 		else if(obj == savePairButton){

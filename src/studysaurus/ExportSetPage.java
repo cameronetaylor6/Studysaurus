@@ -76,8 +76,7 @@ public class ExportSetPage extends Page {
 			//TODO: handle failure?
 		}
 		else if(obj == doneButton || obj == cancelButton){
-			ManageSetsPage manageSetsPage = new ManageSetsPage("Manage Sets Page");
-			createAndShowGUI(manageSetsPage);
+			gameClient.setCurrentPage(new ManageSetsPage("Studysaurus"));
 			this.dispose();
 		}
 	}

@@ -54,8 +54,7 @@ public class ViewScorePage extends Page {
 		public void actionPerformed(ActionEvent e){
 			Object obj = e.getSource();
 			if(obj == doneButton){
-				HomePage homePage = new HomePage("HomePage");
-				createAndShowGUI(homePage);
+				gameClient.setCurrentPage(new HomePage("Studysaurus"));
 				this.dispose();
 			}
 		}

@@ -91,8 +91,7 @@ public class ImportSetPage extends Page {
 			// TODO: handle failure?
 		}
 		else if(obj == doneButton || obj == cancelButton){
-			ManageSetsPage manageSetsPage = new ManageSetsPage("Manage Sets");
-			createAndShowGUI(manageSetsPage);
+			gameClient.setCurrentPage(new ManageSetsPage("Manage Sets"));
 			this.dispose();
 		}
 		

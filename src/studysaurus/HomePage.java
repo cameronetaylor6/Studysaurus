@@ -48,16 +48,13 @@ public class HomePage extends Page{
     public void actionPerformed(ActionEvent e){
     	Object obj = e.getSource();
     	if(obj == playButton){
-    		GameOptionsPage gameOptionsPage = new GameOptionsPage("GameOptionsPage");
-    		createAndShowGUI(gameOptionsPage);
+    		gameClient.setCurrentPage(new GameOptionsPage("Studysaurus"));
     	} 
     	else if(obj == manageSetsButton){
-    		ManageSetsPage manageSetsPage = new ManageSetsPage("ManageSetsPage");
-    		createAndShowGUI(manageSetsPage);
+    		gameClient.setCurrentPage(new ManageSetsPage("Studysaurus"));
     	}
     	else if(obj == viewScoreButton){
-    		ViewScorePage viewScorePage = new ViewScorePage("ViewScorePage");
-    		createAndShowGUI(viewScorePage);
+    		gameClient.setCurrentPage(new ViewScorePage("Studysaurus"));
     	}
     	else if(obj == exitButton){
     		this.dispose();
