@@ -158,7 +158,8 @@ public class EditSetPage extends Page {
 		else if(obj == doneButton){
 			System.out.print(setToEdit.toString());
 			dc.saveSet(setToEdit);
-			gameClient.setCurrentPage(new ManageSetsPage("StudySaurus"));
+			ManageSetsPage manageSetsPage = new ManageSetsPage("StudySaurus");
+			createAndShowGUI(manageSetsPage);
 			this.dispose();
 		}
 		else if(obj == selectPairEditComboBox){

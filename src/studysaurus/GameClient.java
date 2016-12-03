@@ -37,7 +37,6 @@ public final class GameClient {
     //getters and setters
     public void setCurrentPage(Page page) {
         currentPage = page;
-        Page.createAndShowGUI(currentPage);
     }
     public Page getCurrentPage() {
         return currentPage;

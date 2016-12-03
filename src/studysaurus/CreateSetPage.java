@@ -106,7 +106,8 @@ public class CreateSetPage extends Page  {
 			}
 			System.out.print(newSet.toString());
 			dc.saveSet(newSet);
-			gameClient.setCurrentPage(new HomePage("Studysauus"));
+			HomePage homePage = new HomePage("Studysaurus");
+			createAndShowGUI(homePage);
 			this.dispose();
 		}
 		else if(obj == savePairButton){
