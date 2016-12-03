@@ -42,6 +42,7 @@ public class ExportSetPage extends Page {
 	                (int)(buttonSize.getHeight() * 6.5) * 2));
 		
 		ArrayList<String> setNames = dc.getSets(true);
+		selectSetToExport = new JComboBox(setNames.toArray());
 		selectSetToExport.addActionListener(this);
 		JLabel label = new JLabel("Select a set to export:");
 		label.setFont(new Font("Serif", Font.PLAIN, 20));

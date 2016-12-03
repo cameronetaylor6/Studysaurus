@@ -20,6 +20,8 @@ public class ViewScorePage extends Page {
 	private static final long serialVersionUID = 1L;
 	GridLayout layout = new GridLayout(4,0);
     JButton doneButton;
+    JList<String> scoreList;
+    ArrayList<String> scoreStrings;
     
 	    public ViewScorePage(String name) {
 	        super(name);
@@ -39,13 +41,9 @@ public class ViewScorePage extends Page {
 	         
 	        //Add buttons to experiment with Grid Layout
 	        ArrayList<Score> scores = dc.getScores();
-	        ArrayList<String> scoreStrings = null;
-	        for(Score sc: scores){
-	        	scoreStrings.add(sc.toString());
-	        }
 	        doneButton = new JButton("Done");
 	        doneButton.addActionListener(this);
-	        JList<String> scoreList = new JList(scoreStrings.toArray());
+	        scoreList = new JList(scores.toArray());
 	        panel.add(scoreList);
 	        panel.add(doneButton);
 	       
