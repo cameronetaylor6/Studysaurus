@@ -108,9 +108,6 @@ public class PlayGamePage extends Page {
 			gameClient.createAndSetAsteroid();
 		}
 		if(obj == enterButton){
-			System.out.println(gameClient.getAsteroid().state.impacted);
-			System.out.println(gameClient.getAsteroid().state.diffused);
-			System.out.println();
 			if(gameClient.getAsteroid().state.impacted == false) {
 				if (gameClient.checkAnswer(currentPair, guessField.getText()) || gameClient.getAsteroid().state.diffused) {
 					gameClient.getAsteroid().state.diffused = true;

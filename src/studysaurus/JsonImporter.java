@@ -2,6 +2,7 @@ package studysaurus;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -26,16 +27,20 @@ public class JsonImporter {
 			Object obj = parser.parse(new FileReader(_filePath));
 			JSONObject jObj = (JSONObject) obj;
 			String setName = (String) jObj.get("name");
-			JSONObject termValues = (JSONObject) jObj.get(setName);
-
 			_set.setName(setName);
 
-			for (Object term : termValues.keySet()) {
-				String termStr = (String) term;
-				Object value = termValues.get(termStr);
-				String valueStr = (String) value;
-				Pair pair = new Pair(termStr, valueStr, setName);
-				_set.addPair(pair);
+			JSONArray termValues = (JSONArray) jObj.get("termValues");
+
+			for(int i = 0; i < termValues.size(); i++) {
+				JSONObject jPair = (JSONObject) termValues.get(i);
+				java.util.Set<String> keySet = jPair.keySet();
+				for(String key : keySet) {
+					String termStr = (String) key;
+					Object value = jPair.get(termStr);
+					String valueStr = (String) value;
+					Pair pair = new Pair(termStr, valueStr, setName);
+					_set.addPair(pair);
+				}
 			}
 		}
 		catch (FileNotFoundException e) {

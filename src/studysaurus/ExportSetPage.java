@@ -66,7 +66,6 @@ public class ExportSetPage extends Page {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == selectSetToExport){
-			//Grab set
 			exportSetName = selectSetToExport.getSelectedItem().toString();
 		}
 		else if(obj == exportButton){
