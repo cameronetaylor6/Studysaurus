@@ -94,7 +94,6 @@ public class GameOptionsPage extends Page implements ActionListener {
 	public void actionPerformed(ActionEvent e){
 		Object obj = e.getSource();
 		if(obj == playButton){
-			System.out.print(selectedSet.toString());
 			PlayGamePage playGamePage = new PlayGamePage("Studysaurus");
 			createAndShowGUI(playGamePage);
 			this.dispose();
@@ -107,6 +106,7 @@ public class GameOptionsPage extends Page implements ActionListener {
 		else if (obj == customSets){
 			String selectedSetName = (String)customSets.getSelectedItem();
 			Set selectedSet = dc.selectSet(selectedSetName);
+			System.out.print(selectedSet.toString());
 			gameClient.setCurrentSet(selectedSet);
 		}
 		else if (obj == easyLevel){
