@@ -23,8 +23,8 @@ public final class GameClient {
         currentPage = new HomePage("Studysaurus");
         Page.createAndShowGUI(currentPage);
         currentSet = null;
-        difficulty = 0;
-        dinosaurCount = 0;
+        difficulty = 8; //  set default to easy
+        dinosaurCount = 3;
         guess = null;
         score = new Score();
         asteroid = null;

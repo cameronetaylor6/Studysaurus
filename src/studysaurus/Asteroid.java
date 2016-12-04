@@ -9,11 +9,10 @@ public class Asteroid {
 		public boolean impacted = false;
 		public boolean diffused = false;
 	}
-
+	protected GameClient gameClient = GameClient.getInstance();
 	public AsteroidState state;
 	private Timer timer;
 
-	//TODO: update difficulty to enumeration/class?
 	Asteroid(int difficulty) {
 		state = new AsteroidState();
 		timer = new Timer();

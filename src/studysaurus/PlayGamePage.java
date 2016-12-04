@@ -90,12 +90,14 @@ public class PlayGamePage extends Page {
 		}
 		if(obj == enterButton){
 			System.out.println(gameClient.getAsteroid().state.impacted);
+			System.out.println(gameClient.getAsteroid().state.diffused);
+			System.out.println();
 			if(gameClient.getAsteroid().state.impacted == false) {
 				if (gameClient.checkAnswer(currentPair, guessField.getText()) || gameClient.getAsteroid().state.diffused) {
 					gameClient.getAsteroid().state.diffused = true;
 					gameClient.incrementScore();
 					guessField.setText("");
-					feedbackField.setText("Correct");
+					feedbackField.setText("Correct - here's the next one!");
 					scoreField.setText(gameClient.getScore().toString());
 					if(randomSet.hasNext()) {
 						currentPair = randomSet.next();
@@ -104,33 +106,34 @@ public class PlayGamePage extends Page {
 						gameClient.createAndSetAsteroid();
 					}
 					else {
-						// TODO: game over, you win?
+						feedbackField.setText("You win, good job! Your score was: " + gameClient.getScore());
+						dc.saveScore(gameClient.getScore());
 					}
 				}
 				else {
-					feedbackField.setText("Incorrect, try again");
-					// TODO: alert user incorrect guess, keep guessing
+					feedbackField.setText("Incorrect, try again.");
 				}
 			}
-		}
 			else{
-				// TODO: alert user time expired
 				int lives = gameClient.getDinosaurCount();
 				if(lives > 1) {
 					gameClient.setDinosaurCount(lives - 1);
+					feedbackField.setText("Time expired, you have " + gameClient.getDinosaurCount() + " left! Keep going!");
 					if(randomSet.hasNext()) {
 						currentPair = randomSet.next();
 						termField.setText(currentPair.getTerm());
 						gameClient.createAndSetAsteroid();
 					}
 					else {
-						// TODO: game over, you win?
+						feedbackField.setText("You win, good job! Your score was: " + gameClient.getScore());
+						dc.saveScore(gameClient.getScore());
 					}
 				}
 				else {
-					// TODO: you lose, wat do
+					feedbackField.setText("Game over, you're out of lives. Better luck next time!");
 				}
 			}
 		}
 	}
+}
 
