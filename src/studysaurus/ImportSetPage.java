@@ -19,9 +19,9 @@ public class ImportSetPage extends Page {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	GridLayout layout = new GridLayout(4,0);
+	GridLayout layout = new GridLayout(3,0);
 	JButton browseButton, importButton, doneButton, cancelButton;
-	JTextField setNameTextField, filenameTextfield;
+	JTextField filenameTextfield;
 	Set newSet;
 	File selectedFile;
 	JsonImporter json;
@@ -33,11 +33,9 @@ public class ImportSetPage extends Page {
 	void drawPage(Container pane) {
 		panel.setLayout(layout);
 		
-		JPanel setNamePanel = new JPanel(new GridLayout(2,0));
 		JPanel selectFilePanel = new JPanel(new GridLayout(2,0));
 		JPanel importFilePanel = new JPanel(new GridLayout(2,0));
 		JPanel finishedPanel = new JPanel(new GridLayout(2,0));
-		panel.add(setNamePanel);
 		panel.add(selectFilePanel);
 		panel.add(importFilePanel);
 		panel.add(finishedPanel);
@@ -46,11 +44,6 @@ public class ImportSetPage extends Page {
         Dimension buttonSize = b.getPreferredSize();
         panel.setPreferredSize(new Dimension((int)(buttonSize.getWidth() * 5.5),
                 (int)(buttonSize.getHeight() * 6.5) * 2));
-
-		setNameTextField = new JTextField();
-		setNameTextField.addActionListener(this);
-		setNamePanel.add(new JLabel("What would you like to name this set?"));
-		setNamePanel.add(setNameTextField);
 		
 		browseButton = new JButton("Browse");
 		browseButton.addActionListener(this);
