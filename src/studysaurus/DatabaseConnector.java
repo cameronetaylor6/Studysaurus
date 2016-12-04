@@ -1,7 +1,6 @@
 package studysaurus;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -52,13 +51,45 @@ public final class DatabaseConnector {
 		sessionFactory.close();
 		return selectedSet;
 	}
+	public boolean checkSetName(String setName) {
+		ArrayList<String> setNames = getSets(true);
+		setNames.addAll(getSets(false));
+		System.out.println(setNames);
+		if(setNames.contains(setName)){
+			return true;
+		}
+		return false;
+	}
+	//@Transactional
 	public void saveSet(Set aSet){
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		if(checkSetName(aSet.getName())){
+			Session session = sessionFactory.openSession();
+			String hql = "SELECT S.id FROM Set S WHERE S.name = '" + aSet.getName() + "'";
+			Query query = session.createQuery(hql);
+			ArrayList<Integer> results = (ArrayList<Integer>) query.list();
+			Object inst = session.load(Set.class, results.get(0));
+			if(inst != null){
+				System.out.println("Deleting Set");
+				session.delete(inst);
+			}
+			hql = "SELECT P.id FROM Pair P WHERE P.ownerSet = '" + aSet.getName() + "'";
+			query = session.createQuery(hql);
+			results = (ArrayList<Integer>) query.list();
+			for(int pId : results){
+				inst = session.load(Pair.class, pId);
+				if(inst != null){
+					System.out.println("Deleting Pair");
+					session.delete(inst);
+				}
+			}
+			session.close();
+		}
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.saveOrUpdate(aSet);
+        session.save(aSet);
         for(Pair pair : aSet.getPairs()){
-        	session.saveOrUpdate(pair);
+        	session.save(pair);
         }
         session.getTransaction().commit();
         session.close();
