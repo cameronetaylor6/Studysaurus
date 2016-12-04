@@ -4,7 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -16,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Iterator;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,7 +30,7 @@ import javax.swing.JTextField;
 @SuppressWarnings("serial")
 public class PlayGamePage extends Page {
 	private GridLayout layout = new GridLayout(1,1);
-	private JTextField termField, feedbackField, scoreField, guessField;
+	private JTextField termField, feedbackField, scoreField, guessField, livesField;
 	private JButton startButton, exitGameButton, enterButton;
 	private Iterator<Pair> randomSet;
 	private Pair currentPair;
@@ -42,18 +46,8 @@ public class PlayGamePage extends Page {
         panel.setPreferredSize(new Dimension((int)(buttonSize.getWidth() * 5.5),
                 (int)(buttonSize.getHeight() * 6.5) * 2));
 		JPanel gamePanel = new JPanel(new GridLayout(8,0));
+		JPanel scorePanel = new JPanel(new GridLayout(2,2));
 		JPanel enterGuess = new JPanel(new GridLayout(2,1));
-		
-		BufferedImage dinosaur = null;
-		try {
-			dinosaur = ImageIO.read(new File("/home/user/Desktop/dino.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		JLabel picLabel = new JLabel(new ImageIcon(dinosaur));
-		panel.add(picLabel);
-		
 		panel.add(enterGuess);
 		panel.add(gamePanel);
 		
@@ -76,15 +70,22 @@ public class PlayGamePage extends Page {
 		enterGuess.add(enterButton);
 		JLabel scoreLabel  = new JLabel("Score");
 		scoreLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+		scorePanel.add(scoreLabel);
+		JLabel livesLabel = new JLabel("Lives");
+		livesLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+		scorePanel.add(livesLabel);
 		scoreField = new JTextField();
 		scoreField.setEditable(false);
+		scorePanel.add(scoreField);
+		livesField = new JTextField();
+		livesField.setEditable(false);
+		scorePanel.add(livesField);
 		exitGameButton = new JButton("Done");
 		exitGameButton.addActionListener(this);
 		
 		
 		gamePanel.add(startButton);
-		gamePanel.add(scoreLabel);
-		gamePanel.add(scoreField);
+		gamePanel.add(scorePanel);
 		gamePanel.add(termLabel);
 		gamePanel.add(termField);
 		gamePanel.add(definitionLabel);
@@ -105,6 +106,7 @@ public class PlayGamePage extends Page {
 			randomSet = gameClient.getCurrentSet().randomizeSet();
 			currentPair = randomSet.next();
 			termField.setText(currentPair.getTerm());
+			livesField.setText("" + gameClient.getDinosaurCount() + "");
 			gameClient.createAndSetAsteroid();
 		}
 		if(obj == enterButton){
@@ -138,6 +140,7 @@ public class PlayGamePage extends Page {
 					if(randomSet.hasNext()) {
 						currentPair = randomSet.next();
 						termField.setText(currentPair.getTerm());
+						livesField.setText("" + gameClient.getDinosaurCount() + "");
 						gameClient.createAndSetAsteroid();
 					}
 					else {
