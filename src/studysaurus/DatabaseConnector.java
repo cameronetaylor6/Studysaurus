@@ -89,8 +89,8 @@ public final class DatabaseConnector {
         Set s3 = new Set("poodle", true);
         Pair n3 = new Pair("bark", "woof", s3.getName());
         Pair n4 = new Pair("dingus", "dodongo", s3.getName());
-        s2.addPair(n1);
-        s2.addPair(n2);
+        s2.addPair(n3);
+        s2.addPair(n4);
         
         sets.add(s2);
         sets.add(s3);
