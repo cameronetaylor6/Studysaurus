@@ -14,8 +14,6 @@ public abstract class Page extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	final JPanel panel = new JPanel(); 
     private GridLayout layout;
-    private ArrayList<Observer> observers; 
-    public Object state;
     protected GameClient gameClient = GameClient.getInstance();
     protected DatabaseConnector dc = DatabaseConnector.getInstance();
     
