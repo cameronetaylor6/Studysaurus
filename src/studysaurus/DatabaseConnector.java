@@ -86,7 +86,14 @@ public final class DatabaseConnector {
         s2.addPair(n1);
         s2.addPair(n2);
         
+        Set s3 = new Set("poodle", true);
+        Pair n3 = new Pair("bark", "woof", s3.getName());
+        Pair n4 = new Pair("dingus", "dodongo", s3.getName());
+        s2.addPair(n1);
+        s2.addPair(n2);
+        
         sets.add(s2);
+        sets.add(s3);
          
         for (Score score : scoreList){
             saveScore(score);
