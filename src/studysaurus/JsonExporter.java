@@ -1,4 +1,5 @@
 package studysaurus;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -14,17 +15,20 @@ public class JsonExporter {
 	}
 
 	public boolean export() {
-		JSONObject termValues = new JSONObject();
+		JSONObject jSet = new JSONObject();
+		jSet.put("name", _set.getName());
 
+		JSONArray termValues = new JSONArray();
 		for (Pair pair : _set.getPairs()) {
-			termValues.put(pair.getTerm(), pair.getValue());
+			JSONObject jPair = new JSONObject();
+			jPair.put(pair.getTerm(), pair.getValue());
+			termValues.add(jPair);
 		}
-		termValues.put(_set.getName(), termValues);
-		termValues.put("name", _set.getName());
+		jSet.put("termValues", termValues);
 
 		try {
-			FileWriter file = new FileWriter("/home/user/Desktop/Studysaurus/Sets/" + _set.getName() + ".json");
-			file.write(termValues.toJSONString());
+			FileWriter file = new FileWriter(new File("/home/user/Desktop/Studysaurus/Sets/" + _set.getName() + ".json"));
+			file.write(jSet.toJSONString());
 			file.flush();
 			file.close();
 		} 

@@ -21,7 +21,11 @@ public class Set{
   @Transient
   private ArrayList<Pair> termValue;
 
-  public Set() {}
+  public Set() {
+	  this.name = "";
+	  this.custom = true;
+	  this.termValue = new ArrayList<Pair>();
+  }
   public Set(String name, boolean cust) {
     this.name = name;
     this.custom = cust;
