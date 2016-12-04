@@ -18,10 +18,10 @@ public class ViewScorePage extends Page {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	GridLayout layout = new GridLayout(4,0);
-    JButton doneButton;
-    JList<String> scoreList;
-    ArrayList<String> scoreStrings;
+	private GridLayout layout = new GridLayout(4,0);
+    private JButton doneButton;
+    private JList<String> scoreList;
+    private ArrayList<String> scoreStrings;
     
 	    public ViewScorePage(String name) {
 	        super(name);

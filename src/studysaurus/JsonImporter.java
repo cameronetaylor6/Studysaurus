@@ -13,7 +13,7 @@ public class JsonImporter {
 
 	private String _filePath;
 	private Set _set;
-	DatabaseConnector dc = DatabaseConnector.getInstance();
+	private DatabaseConnector dc = DatabaseConnector.getInstance();
 
 	JsonImporter(String filePath) {
 		_filePath = filePath;
