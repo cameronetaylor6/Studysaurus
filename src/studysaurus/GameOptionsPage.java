@@ -106,7 +106,6 @@ public class GameOptionsPage extends Page implements ActionListener {
 		else if (obj == customSets){
 			String selectedSetName = (String)customSets.getSelectedItem();
 			Set selectedSet = dc.selectSet(selectedSetName);
-			System.out.print(selectedSet.toString());
 			gameClient.setCurrentSet(selectedSet);
 		}
 		else if (obj == easyLevel){

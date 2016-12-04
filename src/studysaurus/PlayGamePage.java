@@ -6,8 +6,17 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Iterator;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,17 +25,17 @@ import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class PlayGamePage extends Page {
-	GridLayout layout = new GridLayout(1,1);
-	JTextField termField, feedbackField, scoreField, guessField;
-	JButton startButton, exitGameButton, enterButton;
-	Iterator<Pair> randomSet;
-	Pair currentPair;
+	private GridLayout layout = new GridLayout(1,1);
+	private JTextField termField, feedbackField, scoreField, guessField;
+	private JButton startButton, exitGameButton, enterButton;
+	private Iterator<Pair> randomSet;
+	private Pair currentPair;
 
 	public PlayGamePage(String name) {
 		super(name);
 	}
 
-	void drawPage(Container pane) {
+	void drawPage(Container pane){
 		panel.setLayout(layout);
 		JButton b = new JButton("Just fake button");
         Dimension buttonSize = b.getPreferredSize();
@@ -34,6 +43,18 @@ public class PlayGamePage extends Page {
                 (int)(buttonSize.getHeight() * 6.5) * 2));
 		JPanel gamePanel = new JPanel(new GridLayout(8,0));
 		JPanel enterGuess = new JPanel(new GridLayout(2,1));
+		
+		BufferedImage dinosaur = null;
+		try {
+			dinosaur = ImageIO.read(new File("/home/user/Desktop/dino.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		JLabel picLabel = new JLabel(new ImageIcon(dinosaur));
+		panel.add(picLabel);
+		
+		panel.add(enterGuess);
 		panel.add(gamePanel);
 		
 		startButton = new JButton("Start");
@@ -41,8 +62,6 @@ public class PlayGamePage extends Page {
 		JLabel termLabel = new JLabel("Term");
 		termLabel.setFont(new Font("Serif", Font.PLAIN, 20));
 		termField = new JTextField("");
-		//Pair currentPair = gameClient.getCurrentPair();
-		//termField = new JTextField(currentPair.getTerm());
 	    termField.setEditable(false);
 		JLabel definitionLabel = new JLabel("Definition");
 		definitionLabel.setFont(new Font("Serif", Font.PLAIN, 20));
