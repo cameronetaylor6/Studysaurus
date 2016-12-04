@@ -72,7 +72,9 @@ public class GameOptionsPage extends Page implements ActionListener {
 	        //Add Level stuff
 	        //TODO: Make it so that only one can be selected
 	        easyLevel = new JRadioButton("Easy");
+	        easyLevel.addActionListener(this);
 	        hardLevel = new JRadioButton("Hard");
+	        hardLevel.addActionListener(this);
 	        levelPanel.add(easyLevel);
 	        levelPanel.add(hardLevel);
 	        radioButtonPanel.add(new JLabel("Select a Level:"));
