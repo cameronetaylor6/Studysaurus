@@ -100,6 +100,7 @@ public class PlayGamePage extends Page {
 		if(obj == exitGameButton){
 			HomePage homePage = new HomePage("HomePage");
 			createAndShowGUI(homePage);
+			dc.saveScore(gameClient.getScore());
 			this.dispose();
 		}
 		if(obj == startButton){
