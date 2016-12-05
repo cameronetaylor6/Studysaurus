@@ -18,7 +18,7 @@ public class ViewScorePage extends Page {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private GridLayout layout = new GridLayout(4,0);
+	private GridLayout layout = new GridLayout(2,0);
     private JButton doneButton;
     private JList<String> scoreList;
     private ArrayList<String> scoreStrings;
@@ -30,9 +30,6 @@ public class ViewScorePage extends Page {
 	    public void drawPage(final Container pane) {
 	    	panel.setLayout(layout);
 	        panel.setLayout(layout);
-	        JPanel controls = new JPanel();
-	        controls.setLayout(new GridLayout(4,0));
-	         
 	        //Set up components preferred size
 	        JButton b = new JButton("Just fake button");
 	        Dimension buttonSize = b.getPreferredSize();

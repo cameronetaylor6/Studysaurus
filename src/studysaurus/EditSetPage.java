@@ -138,7 +138,7 @@ public class EditSetPage extends Page {
 		else if(obj == editPairButton){
 			newTerm = editTerm.getText();
 			newDef = editDefinition.getText();
-			setToEdit.editPair(pairs.get(selectPairDeleteComboBox.getSelectedIndex()), new Pair(newTerm, newDef, setName));
+			setToEdit.editPair(pairs.get(selectPairEditComboBox.getSelectedIndex()), new Pair(newTerm, newDef, setName));
 			editTerm.setText("");
 			editDefinition.setText("");
 			selectPairDeleteComboBox.removeItem(selectPairEditComboBox.getSelectedItem());

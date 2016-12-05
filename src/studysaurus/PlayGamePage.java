@@ -101,6 +101,7 @@ public class PlayGamePage extends Page {
 			HomePage homePage = new HomePage("HomePage");
 			createAndShowGUI(homePage);
 			dc.saveScore(gameClient.getScore());
+			gameClient.setDinosaurCount(3);
 			this.dispose();
 		}
 		if(obj == startButton){
@@ -151,6 +152,7 @@ public class PlayGamePage extends Page {
 				}
 				else {
 					feedbackField.setText("Game over, you're out of lives. Better luck next time!");
+					dc.saveScore(gameClient.getScore());
 				}
 			}
 		}

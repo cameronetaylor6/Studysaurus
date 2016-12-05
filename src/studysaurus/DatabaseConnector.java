@@ -96,10 +96,10 @@ public final class DatabaseConnector {
 	}
 	public void saveDefaults(){
 		ArrayList<Score> scoreList = new ArrayList<Score>();
-        scoreList.add(new Score("CET", "doggos", 69));
-        scoreList.add(new Score("JSC", "puppers", 96));
-        scoreList.add(new Score("JAM", "doggos", 100));
-        scoreList.add(new Score("CET", "pitbull", 0));
+        scoreList.add(new Score("CET", "BasicTimesTable", 600));
+        scoreList.add(new Score("JSC", "BasicTimesTable", 900));
+        scoreList.add(new Score("JAM", "BasicTimesTable", 100));
+        scoreList.add(new Score("CET", "BasicTimesTable", 0));
         	        
         ArrayList<Set> sets = new ArrayList<Set>();
         Set s1 = new Set("BasicTimesTable", false);
@@ -111,7 +111,7 @@ public final class DatabaseConnector {
         }	        
         sets.add(s1);
         
-        Set s2 = new Set("noodle", true);
+        Set s2 = new Set("noodle", false);
         Pair n1 = new Pair("spaghetti", "marinara", s2.getName());
         Pair n2 = new Pair("jack", "sparrow", s2.getName());
         s2.addPair(n1);
@@ -119,7 +119,7 @@ public final class DatabaseConnector {
         
         sets.add(s2);
         
-        Set s3 = new Set("poodle", true);
+        Set s3 = new Set("poodle", false);
         Pair n3 = new Pair("bark", "woof", s3.getName());
         Pair n4 = new Pair("dingus", "dodongo", s3.getName());
         s2.addPair(n3);
