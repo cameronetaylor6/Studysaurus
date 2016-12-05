@@ -26,7 +26,7 @@ public class EditSetPage extends Page {
 	JComboBox<String> selectSetComboBox, selectPairEditComboBox, selectPairDeleteComboBox;
 	
 	String setName;
-	Set setToEdit= new Set();
+	Set setToEdit;
 	ArrayList<Pair> pairs = new ArrayList<Pair>();
 	MutableComboBoxModel<String> editModel;
 	MutableComboBoxModel<String> deleteModel;
@@ -116,6 +116,8 @@ public class EditSetPage extends Page {
 		Object obj = e.getSource();
 		if(obj == selectSetComboBox){
 			//Load set in from DB and populate the drop-downs
+			selectPairEditComboBox.removeAllItems();
+			selectPairDeleteComboBox.removeAllItems();
 			setName = selectSetComboBox.getSelectedItem().toString();
 			setToEdit = dc.selectSet(setName);
 			pairs = setToEdit.getPairs();
@@ -148,7 +150,7 @@ public class EditSetPage extends Page {
 		else if(obj == deletePairButton){
 			String deletedTerm = deleteTerm.getText();
 			String deletedDef = deleteDefinition.getText();
-			setToEdit.deletePair(pairs.get(selectPairDeleteComboBox.getSelectedIndex()));
+			setToEdit.deletePair(pairs.get(selectPairDeleteComboBox.getSelectedIndex()+1));
 			deleteTerm.setText("");
 			deleteDefinition.setText("");
 			selectPairEditComboBox.removeItem(selectPairDeleteComboBox.getSelectedItem());
@@ -164,13 +166,17 @@ public class EditSetPage extends Page {
 		}
 		else if(obj == selectPairEditComboBox){
 			String pairStr = (String)selectPairEditComboBox.getSelectedItem();
-			editTerm.setText(pairStr.substring(0, pairStr.indexOf(',')));
-			editDefinition.setText(pairStr.substring(pairStr.indexOf(',')+2, pairStr.length()));
+			if(pairStr != null){
+				editTerm.setText(pairStr.substring(0, pairStr.indexOf(',')));
+				editDefinition.setText(pairStr.substring(pairStr.indexOf(',')+2, pairStr.length()));
+			}
 		}
 		else if(obj == selectPairDeleteComboBox){
 			String pairStr = (String)selectPairDeleteComboBox.getSelectedItem();
-			deleteTerm.setText(pairStr.substring(0, pairStr.indexOf(',')));
-			deleteDefinition.setText(pairStr.substring(pairStr.indexOf(',')+2, pairStr.length()));
+			if(pairStr != null){
+				deleteTerm.setText(pairStr.substring(0, pairStr.indexOf(',')));
+				deleteDefinition.setText(pairStr.substring(pairStr.indexOf(',')+2, pairStr.length()));
+			}
 		}
 		
 	}
