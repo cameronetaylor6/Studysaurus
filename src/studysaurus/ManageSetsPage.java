@@ -15,8 +15,8 @@ public class ManageSetsPage extends Page{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	GridLayout layout = new GridLayout(5,0);
-	 JButton createSetButton, editSetButton, importSetButton, exportSetButton, backButton;
+	private GridLayout layout = new GridLayout(5,0);
+	private JButton createSetButton, editSetButton, importSetButton, exportSetButton, backButton;
      
 	    public ManageSetsPage(String name) {
 	        super(name);

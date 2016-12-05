@@ -19,13 +19,11 @@ public class CreateSetPage extends Page  {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	GridLayout layout = new GridLayout(4,0);
-	JButton savePairButton, doneButton, cancelButton;
-	JTextField setNameBox, termBox, definitionBox;
-	
-	/*Things that will be saved to DB when 'Done' is pressed*/
-	static Set newSet;
-	ArrayList<Pair> pairs;
+	private GridLayout layout = new GridLayout(4,0);
+	private JButton savePairButton, doneButton, cancelButton;
+	private JTextField setNameBox, termBox, definitionBox;
+	private static Set newSet;
+	private ArrayList<Pair> pairs;
 	
 
 	public CreateSetPage(String name) {

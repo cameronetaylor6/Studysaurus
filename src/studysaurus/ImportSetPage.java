@@ -19,12 +19,11 @@ public class ImportSetPage extends Page {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	GridLayout layout = new GridLayout(3,0);
-	JButton browseButton, importButton, doneButton, cancelButton;
-	JTextField filenameTextfield;
-	Set newSet;
-	File selectedFile;
-	JsonImporter json;
+	private GridLayout layout = new GridLayout(3,0);
+	private JButton browseButton, importButton, doneButton, cancelButton;
+	private JTextField filenameTextfield;
+	private File selectedFile;
+	private JsonImporter json;
 
 	public ImportSetPage(String name) {
 		super(name);

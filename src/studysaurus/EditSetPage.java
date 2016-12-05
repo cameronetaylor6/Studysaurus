@@ -20,10 +20,10 @@ public class EditSetPage extends Page {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	GridLayout layout = new GridLayout(5,0);
-	JButton addPairButton, deletePairButton, editPairButton, doneButton;
-	JTextField editTerm, editDefinition, addTerm, addDefinition, deleteTerm, deleteDefinition;
-	JComboBox<String> selectSetComboBox, selectPairEditComboBox, selectPairDeleteComboBox;
+	private GridLayout layout = new GridLayout(5,0);
+	private JButton addPairButton, deletePairButton, editPairButton, doneButton;
+	private JTextField editTerm, editDefinition, addTerm, addDefinition, deleteTerm, deleteDefinition;
+	private JComboBox<String> selectSetComboBox, selectPairEditComboBox, selectPairDeleteComboBox;
 	
 	String setName;
 	Set setToEdit;

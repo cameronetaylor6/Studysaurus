@@ -52,16 +52,47 @@ public final class DatabaseConnector {
 		sessionFactory.close();
 		return selectedSet;
 	}
+	public boolean checkSetName(String setName) {
+		ArrayList<String> setNames = getSets(true);
+		setNames.addAll(getSets(false));
+		if(setNames.contains(setName)){
+			return true;
+		}
+		return false;
+	}
 	public void saveSet(Set aSet){
 		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.saveOrUpdate(aSet);
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		if(checkSetName(aSet.getName())){
+			String hql = "SELECT S.id FROM Set S WHERE S.name = '" + aSet.getName() + "'";
+			Query query = session.createQuery(hql);
+			ArrayList<Integer> results = (ArrayList<Integer>) query.list();
+			Set inst = session.load(Set.class, results.get(0));
+			session.update(inst);
+			hql = "SELECT P.id FROM Pair P WHERE P.ownerSet = '" + aSet.getName() + "'";
+			query = session.createQuery(hql);
+			results = (ArrayList<Integer>) query.list();
+			for(int pId : results){
+				Object inst2 = session.load(Pair.class, pId);
+				if(inst2 != null){
+					session.delete(inst2);
+				}
+			}
+			for(Pair pair : aSet.getPairs()){
+	        	session.save(pair);
+	        }
+			session.getTransaction().commit();
+			session.close();
+			return;
+		}
+        session.save(aSet);
         for(Pair pair : aSet.getPairs()){
-        	session.saveOrUpdate(pair);
+        	session.save(pair);
         }
         session.getTransaction().commit();
         session.close();
+        sessionFactory.close();
 	}
 	public void saveDefaults(){
 		ArrayList<Score> scoreList = new ArrayList<Score>();
@@ -86,13 +117,14 @@ public final class DatabaseConnector {
         s2.addPair(n1);
         s2.addPair(n2);
         
+        sets.add(s2);
+        
         Set s3 = new Set("poodle", true);
         Pair n3 = new Pair("bark", "woof", s3.getName());
         Pair n4 = new Pair("dingus", "dodongo", s3.getName());
         s2.addPair(n3);
         s2.addPair(n4);
         
-        sets.add(s2);
         sets.add(s3);
          
         for (Score score : scoreList){
@@ -123,6 +155,7 @@ public final class DatabaseConnector {
         session.saveOrUpdate(aScore);
         session.getTransaction().commit();
         session.close();
+        sessionFactory.close();
 	}
 	
 	public void checkForDefaults(){

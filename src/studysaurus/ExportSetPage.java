@@ -20,10 +20,10 @@ public class ExportSetPage extends Page {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	GridLayout layout = new GridLayout(1,1);
-	JComboBox<String> selectSetToExport;
-	JButton exportButton, doneButton, cancelButton;
-	String exportSetName;
+	private GridLayout layout = new GridLayout(1,1);
+	private JComboBox<String> selectSetToExport;
+	private JButton exportButton, doneButton, cancelButton;
+	private String exportSetName;
 	
 	public ExportSetPage(String name) {
 		super(name);

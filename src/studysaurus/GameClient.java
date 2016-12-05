@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public final class GameClient {
-    private static final GameClient instance = new GameClient();
-
     //instance variables
+    private static final GameClient instance = new GameClient();
     private static Page currentPage;
     private static Set currentSet;
     private static int difficulty;

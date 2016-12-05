@@ -21,11 +21,11 @@ public class GameOptionsPage extends Page implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	GridLayout layout = new GridLayout(2,2);
-	  JButton playButton;
-	  JComboBox<String> defaultSets, customSets;
-	  JRadioButton easyLevel, hardLevel;
-	  Set selectedSet;
+	private GridLayout layout = new GridLayout(2,2);
+	private JButton nextButton;
+	private JComboBox<String> defaultSets, customSets;
+	private JRadioButton easyLevel, hardLevel;
+	private Set selectedSet;
 	     
 	    public GameOptionsPage(String name) {
 	        super(name);
@@ -82,9 +82,9 @@ public class GameOptionsPage extends Page implements ActionListener {
 
 	        
 	        //Add Play Button stuff
-	        playButton = new JButton("Play Game!");
-	        playButton.addActionListener(this);
-	        panel.add(playButton);
+	        nextButton = new JButton("Next");
+	        nextButton.addActionListener(this);
+	        panel.add(nextButton);
 
 	        //Display to the pane
 	        pane.add(panel, BorderLayout.CENTER);
@@ -93,7 +93,7 @@ public class GameOptionsPage extends Page implements ActionListener {
 	    
 	public void actionPerformed(ActionEvent e){
 		Object obj = e.getSource();
-		if(obj == playButton){
+		if(obj == nextButton){
 			PlayGamePage playGamePage = new PlayGamePage("Studysaurus");
 			createAndShowGUI(playGamePage);
 			this.dispose();
