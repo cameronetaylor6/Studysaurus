@@ -150,7 +150,7 @@ public class EditSetPage extends Page {
 		else if(obj == deletePairButton){
 			String deletedTerm = deleteTerm.getText();
 			String deletedDef = deleteDefinition.getText();
-			setToEdit.deletePair(pairs.get(selectPairDeleteComboBox.getSelectedIndex()+1));
+			setToEdit.deletePair(pairs.get(selectPairDeleteComboBox.getSelectedIndex()));
 			deleteTerm.setText("");
 			deleteDefinition.setText("");
 			selectPairEditComboBox.removeItem(selectPairDeleteComboBox.getSelectedItem());
